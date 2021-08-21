@@ -12,8 +12,8 @@ def crearcuenta(request):
     if request.method == 'POST':
         form = formularioUser(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('home')
+            form.save()           
+            return redirect('perfil')     #si ingresa correctamente lo manda al perfil
     else:
         form = formularioUser()    
      
@@ -21,3 +21,8 @@ def crearcuenta(request):
         'form': form
     }   
     return render(request,'registrarusuario.html', context)
+
+
+
+def perfil(request):
+    return render(request,'perfil.html', {})
