@@ -1,1 +1,0 @@
-web: cd sacatuturno && gunicorn sacatuturno.wsgi --log-file -
