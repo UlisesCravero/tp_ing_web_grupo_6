@@ -11,10 +11,12 @@
     <title>Saca Tu Turno</title>
 </head>
 <body>
-    <h1>Buen dia</h1>
+    <h1>Bienvenido</h1>
     <p>Sitio en contrucción</p>
+    {% if estadoActivacion %}
+        <p> {{estadoActivacion}} </p>
+    {% endif %}
     
-
     {% if request.user.is_active %}
         <!--<h1>ESTAS LOGUEADO MOSTRO {{request.user.username}}</h1>-->
         <a href="{%url 'logout'%}"><button type="button">Salir</button></a>
