@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # data para envios de email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'noreply.sacatuturno@gmail.com' #nombre que aparece en el mail
-EMAIL_HOST_PASSWORD = 'ingweb123'
+# EMAIL_HOST_PASSWORD = 'ingweb123'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'noreply.sacatuturno@gmail.com'
