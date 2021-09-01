@@ -86,3 +86,7 @@ def register_confirm(request, activation_key):
         'estadoActivacion': 'Activación completada. Ya puede loguearse correctamente'
     } 
     return render(request, 'home.html', context)   
+
+def categorias(request):
+    categorias = Categoria.objects.all()
+    return render(request, 'categorias.html', {'categorias': categorias})

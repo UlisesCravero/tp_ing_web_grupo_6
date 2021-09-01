@@ -26,6 +26,9 @@ class UserProfile(models.Model):
 #categoria principal -> ej medicina, cuidado persona, etc.
 class Categoria(models.Model):
     nombre = models.CharField(max_length=255, blank = False)
+    
+    def __str__(self):
+        return self.nombre
 
 class SubCategoria(models.Model):
     nombre = models.CharField(max_length=255, blank = False)
@@ -34,6 +37,8 @@ class SubCategoria(models.Model):
 class ServicioPrestado(models.Model):
     nombre = models.CharField(max_length=255, blank = False)
     descripcion = models.CharField(max_length=255, blank = False)
-    propietario = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    propietario = models.ForeignKey(User, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE)
+    
+
