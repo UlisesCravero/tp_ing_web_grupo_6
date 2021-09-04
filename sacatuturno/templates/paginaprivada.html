@@ -1,0 +1,6 @@
+{% include "header.html" %}
+
+<h1>Pagina solo para usuarios logueados</h1>
+{% if request.user.is_active %}
+    <h3>Gracias por loguearte {{request.user.username}}</h3>
+{% endif %}

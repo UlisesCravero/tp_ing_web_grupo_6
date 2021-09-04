@@ -4,7 +4,9 @@ from django.contrib.auth.models import User                  #importamos usarios
 
 
 class formularioUser(UserCreationForm):
-    email = forms.EmailField()
+    email = forms.EmailField(label="Email")
+    nombre = forms.CharField(label="Nombre", max_length=50)
+    apellido = forms.CharField(label="Apellido", max_length=50)
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
     
@@ -12,6 +14,8 @@ class formularioUser(UserCreationForm):
         model = User
         fields = [
             'username', 
+            'nombre',
+            'apellido',
             'password1', 
             'password2', 
             'email', 

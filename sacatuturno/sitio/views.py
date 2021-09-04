@@ -62,6 +62,8 @@ def crearcuenta(request):
 def perfil(request):
     return render(request,'perfil.html', {})
 
+def paginaprivada(request):
+    return render(request,'paginaprivada.html', {})
 
 def register_confirm(request, activation_key):
     # Verifica que el usuario ya está logeado
