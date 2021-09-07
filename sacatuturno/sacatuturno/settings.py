@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-#import django_heroku
+import django_heroku
 import os 
 from pathlib import Path
 
@@ -135,13 +135,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # data para envios de email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'noreply.sacatuturno@gmail.com' #nombre que aparece en el mail
-EMAIL_HOST_PASSWORD = '2021ingweb'
+#EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'noreply.sacatuturno@gmail.com'
 # manejo de password
-#EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '') 
+EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '') 
 
 
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
