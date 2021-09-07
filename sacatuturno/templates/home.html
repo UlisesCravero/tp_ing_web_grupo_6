@@ -1,36 +1,11 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-    
-    <title>Saca Tu Turno</title>
-</head>
-<body>
-    
 
 
-    
-</body>
-</html> -->
+{% extends "base.html" %}
 
-{% include "header.html" %}
-
-    {%block contenido %}
+{%block content %}
     <h1>Bienvenido</h1>
     <p>Sitio en contrucción</p>
     {% if estadoActivacion %}
         <p> {{estadoActivacion}} </p>
     {% endif %}
-    
-    {% if request.user.is_active %}
-        <!--<h1>ESTAS LOGUEADO MOSTRO {{request.user.username}}</h1>-->
-        <a href="{%url 'logout'%}"><button type="button">Salir</button></a>
-    {% else %}
-        <a href= "{%url 'login'%}"><button type="button">Ingresar</button></a>
-        <a href= "{%url 'crearcuenta'%}"><button type="button">Crear Cuenta</button></a>
-    {% endif %}
-
-    {% endblock %}
+{% endblock %}

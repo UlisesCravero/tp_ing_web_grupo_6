@@ -1,0 +1,17 @@
+{% include "header.html" %}
+
+<form method="post">
+        {%csrf_token%}
+
+        <label>Nombre servicio</label>
+        {{form.nombre}} <br>
+        <label>Descripcion</label>
+        {{form.descripcion}} <br>
+        <label>Categoria</label>
+        {{form.categoria}} <br>
+        <label>Subcategoria</label>
+        {{form.subcategoria}} <br>
+
+        <button type="submit">Crear</button>
+        
+</form>

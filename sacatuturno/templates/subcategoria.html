@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{%block content %}
+    <h1> Subcategoria </h1>
+        <ul>
+            {%for item in subcategoria %}
+            <li><a href="{% url 'servicios' item.id %}">{{item.nombre}}</a></li>
+            {%endfor%}  
+        </ul>   
+{% endblock %}

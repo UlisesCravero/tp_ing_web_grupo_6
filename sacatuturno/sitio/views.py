@@ -1,6 +1,6 @@
 #from sacatuturno.sacatuturno.settings import SECRET_KEY
 from django.contrib.auth.views import LoginView
-from .forms import formularioUser
+from .forms import *
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
@@ -13,6 +13,7 @@ import hashlib, datetime, random
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 
 import secrets
 
@@ -46,7 +47,7 @@ def crearcuenta(request):
 
             # Enviar un email de confirmación
             email_subject = 'Confirmación de cuenta'
-            email_body = "Hola %s, Gracias por registrarte. Para activar tu cuenta da clíck en este link en menos de 48 horas: http://sacatuturno.herokuapp.com/accounts/confirm/%s" % (username, activation_key)
+            email_body = "Hola %s, Gracias por registrarte. Para activar tu cuenta da clíck en este link en menos de 48 horas: http://127.0.0.1:8000/accounts/confirm/%s" % (username, activation_key)
 
             send_mail(email_subject, email_body, 'myemail@example.com', [email], fail_silently=False)
             return render(request, 'home.html', {'estadoActivacion': 'Proceso de registración correcto. Activa tu cuenta'})   
@@ -92,3 +93,29 @@ def register_confirm(request, activation_key):
 def categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'categorias.html', {'categorias': categorias})
+
+def subcategoria(request, id):
+    subcategoria = SubCategoria.objects.filter(categoria_id = id)
+    return render(request, 'subcategoria.html', {'subcategoria': subcategoria})
+
+def registrarservicio(request):
+    args = {}
+    args.update(csrf(request))
+    if request.method == 'POST':
+        form = formularioProfesional(request.POST)
+        if form.is_valid():
+            servicio = form.save(commit=False)
+            servicio.propietario_id = request.user.id
+            servicio.save()
+            return render(request, 'home.html', {'estadoServicio': 'Proceso de alta correcto'})   
+    else:
+        form = formularioProfesional()    
+     
+    context = {
+        'form': form
+    }   
+    return render(request,'registrarservicio.html', context)
+
+def servicios(request, id_subcategoria):
+    servicios = ServicioPrestado.objects.filter(subcategoria_id = id_subcategoria)
+    return render(request, 'servicios.html', {'servicios': servicios})

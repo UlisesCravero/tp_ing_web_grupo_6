@@ -1,7 +1,8 @@
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm       #importamos formularios de django
 from django.contrib.auth.models import User                  #importamos usarios de django
-
+from .models import *
 
 class formularioUser(UserCreationForm):
     email = forms.EmailField(label="Email")
@@ -36,8 +37,16 @@ class formularioUser(UserCreationForm):
         print("estas en el save")   
         user = super(formularioUser, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['nombre']
+        user.last_name = self.cleaned_data['apellido']
         if commit:
             user.is_active = False # Usuario no activo hasta que valide su email
             user.save()
 
         return user
+
+class formularioProfesional(forms.ModelForm):
+    class Meta:
+        model = ServicioPrestado
+        fields = ['nombre', 'descripcion', 'categoria', 'subcategoria']
+

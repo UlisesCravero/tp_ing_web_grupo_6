@@ -16,4 +16,8 @@ urlpatterns = [
     path('accounts/confirm/<str:activation_key>', register_confirm, name="activation"),
     path('categorias/', categorias, name='categorias'),
     path('paginaprivada/', login_required(paginaprivada), name='paginaprivada'),
+    path('categorias/subcategoria/<int:id>/', subcategoria, name = 'subcategoria'), 
+    path('servicios/<int:id_subcategoria>/', servicios, name = 'servicios'),    
+    path('registrarservicio/', registrarservicio, name = 'registrarservicio'),
+   
 ]

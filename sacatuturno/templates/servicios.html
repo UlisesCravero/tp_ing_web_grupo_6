@@ -1,0 +1,19 @@
+{% include 'header.html' %}
+
+{%block content %}
+    <h1> Profesionales </h1>
+    <ul>
+        <div class="card-group border border-black">  
+            {%for item in servicios %}
+            <div class="card">     
+                <div class="card-body">
+                    <div class="card-title"><p>{{item.propietario.first_name}} {{item.propietario.last_name}} </p> </div>
+                    <div class="panel-text"><p>{{item.descripcion}}</p></div>
+                    <div class="panel-foocter"><p>Sacar turno</p></div>
+                </div>
+            </div> 
+            {%endfor%}  
+        </div> 
+    </ul>
+
+{% endblock %}
