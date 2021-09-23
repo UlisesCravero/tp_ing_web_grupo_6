@@ -28,6 +28,10 @@ class UserProfile(models.Model):
 class Categoria(models.Model):
     nombre = models.CharField(max_length=255, blank = False)
     
+    @property 
+    def traerSubcategorias(self):
+        return SubCategoria.objects.filter(categoria__id = self.id)
+        
     def __str__(self):
         return self.nombre
 

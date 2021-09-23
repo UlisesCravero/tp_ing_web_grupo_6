@@ -13,6 +13,7 @@ import hashlib, datetime, random
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 
 
 import secrets
@@ -119,3 +120,10 @@ def registrarservicio(request):
 def servicios(request, id_subcategoria):
     servicios = ServicioPrestado.objects.filter(subcategoria_id = id_subcategoria)
     return render(request, 'servicios.html', {'servicios': servicios})
+
+
+#API para traer las subcategorias de una categoria
+def traerSubcategorias(request, id_categoria):
+    categoria = Categoria.objects.get(id = id_categoria)
+    subcategorias = serializers.serialize('json', categoria.traerSubcategorias.all())
+    return HttpResponse(subcategorias, content_type='application/json')

@@ -1,7 +1,8 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm       #importamos formularios de django
-from django.contrib.auth.models import User                  #importamos usarios de django
+from django.contrib.auth.models import User
+from django.forms import widgets                  #importamos usarios de django
 from .models import *
 
 class formularioUser(UserCreationForm):
@@ -49,4 +50,8 @@ class formularioProfesional(forms.ModelForm):
     class Meta:
         model = ServicioPrestado
         fields = ['nombre', 'descripcion', 'categoria', 'subcategoria']
+        widgets = {
+            'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'})
+        }
+
 

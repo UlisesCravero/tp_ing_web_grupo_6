@@ -40,21 +40,19 @@
                                         {{form.descripcion}}
                                     </a>
                                 </div>
-                                <!-- <div class="form-outline form-white mb-4 row">
+                                <div class="form-outline form-white mb-4 row">
                                         <label class="form-label col-6" style="text-align: right;">Categoría:</label>
-                                        <select class="col-6"> 
+                                        <a class="col-6"> 
                                                 {{form.categoria}}
-                                        </option>
+                                        </a>
                                 </div>
                                 <div class="form-outline form-white mb-4 row">
                                         <label class="form-label col-6" style="text-align: right;">Sub-Categoría:</label>
-                                        <a class="col-6"> 
-                                            {{form.subcategoria}}
-                                        </a>
-                                </div> -->
+                                        <select name="subcategoria" data-minimum-input-length="0" data-allow-clear="true" data-placeholder id="id_subcategoria"></select>
+                                </div> 
                                 
 
-                                <div class="form-outline form-white mb-4 row">
+                                <!--<div class="form-outline form-white mb-4 row">
                                         <label class="form-label col-6" style="text-align: right;">Categoría:</label>
                                         <select class="custom-select col-6" name="categoria" id="menu" onchange="populate( 'this.value' ,'select2')">  
                                                 <option value=""> Seleccione una categoria </option>
@@ -70,11 +68,51 @@
                                         <select name="tipocategoria" id="submenu" class="col-6">
                                                 
                                         </select> 
-                                </div>
+                                </div>-->
                                 
                                 <script>
 
-                                        var categorias={
+                                        function mostrarSubcategorias(){
+                                        var x = document.getElementById("id_categoria").value
+                                        $.ajax({
+                                                url: "../traerSubcategorias/" + x,
+                                                type: 'GET',
+                                                dataType: 'json',
+                                                success: function(data){
+                                                        var select = document.getElementById("id_subcategoria");
+                                                        for (let i = select.options.length; i >= 0; i--) {
+                                                                select.remove(i);
+                                                        }
+
+                                                        if (data.length != 0){
+                                                                for (let i = 0; i < data.length; i++){
+                                                                        var option = document.createElement('option');
+                                                                        option.value = data[i].pk;
+                                                                        option.text = data[i].fields.nombre;
+                                                                        select.appendChild(option);
+                                                                }
+                                                        }
+                                                        else{
+                                                                var option = document.createElement('option');
+                                                                option.text = "No existen subcategorias registradas";
+                                                                option.disabled = true;
+                                                                select.appendChild(option);
+                                                        }
+                                                        },
+                                                error: function() {
+                                                        var select = document.getElementById("id_subcategoria");
+                                                        for (let i = select.options.length; i >= 0; i--) {
+                                                                select.remove(i);
+                                                        }
+                                                        }
+                                        });
+
+                                        }
+
+
+
+
+                                        /*var categorias={
                                                 cat1: ['SubCategoria1-1', 'SubCategoria1-2', 'SubCategoria1-3','SubCategoria1-4','SubCategoria1-5'],
                                                 cat2: ['SubCategoria2-1', 'SubCategoria2-2', 'SubCategoria2-3','SubCategoria2-4','SubCategoria2-5'],
                                                 cat3: ['SubCategoria3-1', 'SubCategoria3-2', 'SubCategoria3-3','SubCategoria3-4','SubCategoria3-5'],
@@ -95,57 +133,8 @@
                                                         let option = new option(el,el);
                                                         sub.appendChild(option);       
                                                         });
-                                        });
+                                        });*/
 
-
-
-
-
-
-
-                                        // function populate(s1,s2)
-                                        // {
-                                        //     var s1 = document.getElementById(s1);
-                                        //     var s2 = document.getElementById(s2);    
-                                
-                                        //     s2.innerHTML = "";
-                                
-                                        //     if(s1.value == "cat1")
-                                        //     {
-                                        //             var optionArray = ['SubCat1-1| SubCategoria1-1', 'SubCat1-2| SubCategoria1-2', 'SubCat1-3| SubCategoria1-3',
-                                        //             'SubCat1-4| SubCategoria1-4','SubCat1-5| SubCategoria1-5' ];
-                                        //     }
-                                        //     else if(s1.value == "cat2")
-                                        //     {
-                                        //             var optionArray = ['SubCat2-1| SubCategoria2-1', 'SubCat2-2| SubCategoria2-2', 'SubCat2-3| SubCategoria2-3',
-                                        //             'SubCat2-4| SubCategoria2-4','SubCat2-5| SubCategoria2-5' ];
-                                        //     }
-                                        //     else if(s1.value == "cat3")
-                                        //     {
-                                        //             var optionArray = ['SubCat3-1| SubCategoria3-1', 'SubCat3-2| SubCategoria3-2', 'SubCat3-3| SubCategoria3-3',
-                                        //             'SubCat3-4| SubCategoria3-4','SubCat3-5| SubCategoria3-5' ];
-                                        //     }
-                                        //     else if(s1.value == "cat4")
-                                        //     {
-                                        //             var optionArray = ['SubCat4-1| SubCategoria4-1', 'SubCat4-2| SubCategoria4-2', 'SubCat4-3| SubCategoria4-3',
-                                        //             'SubCat4-4| SubCategoria4-4','SubCat4-5| SubCategoria4-5' ];
-                                        //     }
-                                        //     else if(s1.value == "cat5")
-                                        //     {
-                                        //             var optionArray = ['SubCat5-1| SubCategoria5-1', 'SubCat5-2| SubCategoria5-2', 'SubCat5-3| SubCategoria5-3',
-                                        //             'SubCat5-4| SubCategoria5-4','SubCat5-5| SubCategoria5-5' ];
-                                        //     }
-                                
-                                        //     for(var option in optionArray)
-                                        //     {
-                                        //             var pair = optionArray[option].split("|");
-                                        //             var newoption = document.createElement("option");
-                                
-                                        //             newoption.value = pair[0];
-                                        //             newoption.innerHTML = pair[1];
-                                        //             s2.option.add(newoption);
-                                        //     }
-                                        // }
                                 </script>
 
 

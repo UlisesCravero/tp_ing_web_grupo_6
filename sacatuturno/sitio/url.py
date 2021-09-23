@@ -19,5 +19,6 @@ urlpatterns = [
     path('categorias/subcategoria/<int:id>/', subcategoria, name = 'subcategoria'), 
     path('servicios/<int:id_subcategoria>/', servicios, name = 'servicios'),    
     path('registrarservicio/', registrarservicio, name = 'registrarservicio'),
-   
+    path('traerSubcategorias/<int:id_categoria>/', login_required(traerSubcategorias), name = 'traerSubcategorias')
+
 ]
