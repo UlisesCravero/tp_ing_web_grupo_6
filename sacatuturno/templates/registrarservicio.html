@@ -3,15 +3,165 @@
 <form method="post">
         {%csrf_token%}
 
-        <label>Nombre servicio</label>
+        <!-- <label>Nombre servicio</label>
         {{form.nombre}} <br>
         <label>Descripcion</label>
         {{form.descripcion}} <br>
         <label>Categoria</label>
         {{form.categoria}} <br>
         <label>Subcategoria</label>
-        {{form.subcategoria}} <br>
+        {{form.subcategoria}} <br> -->
 
-        <button type="submit">Crear</button>
+        <!-- <button type="submit">Crear</button> -->
         
+        <section class="vh-100 gradient-custom">
+        <div class="container py-3 h-80">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card-body mt-2 text-center">
+        
+                    <div class="mb-md-5 mt-md-4 pb-2">
+                
+                                <h2 class="fw-bold mb-2 text-uppercase text-center">CREAR SERVICIO </h2>
+                                <p class="text-white-50 mb-5 text-center">Complete los campos solicitados</p>
+                                                       
+                                
+                                <div class="form-outline form-white mb-4 row" >
+                                    <label class="form-label col-6" style="text-align: right;" >Nombre del servicio: </label>
+                                    <a class="col-6" > 
+                                        {{form.nombre}}
+                                    </a>
+                                </div>
+                
+                                <div class="form-outline form-white mb-4 row">
+                                    <label class="form-label col-6" style="text-align: right;">Descripcion del servicio:</label>
+                                    <a class="col-6"> 
+                                        {{form.descripcion}}
+                                    </a>
+                                </div>
+                                <!-- <div class="form-outline form-white mb-4 row">
+                                        <label class="form-label col-6" style="text-align: right;">Categoría:</label>
+                                        <select class="col-6"> 
+                                                {{form.categoria}}
+                                        </option>
+                                </div>
+                                <div class="form-outline form-white mb-4 row">
+                                        <label class="form-label col-6" style="text-align: right;">Sub-Categoría:</label>
+                                        <a class="col-6"> 
+                                            {{form.subcategoria}}
+                                        </a>
+                                </div> -->
+                                
+
+                                <div class="form-outline form-white mb-4 row">
+                                        <label class="form-label col-6" style="text-align: right;">Categoría:</label>
+                                        <select class="custom-select col-6" name="categoria" id="menu" onchange="populate( 'this.value' ,'select2')">  
+                                                <option value=""> Seleccione una categoria </option>
+                                                <option value="cat1"> Categoria 1</option>
+                                                <option value="cat2"> Categoria 2</option>
+                                                <option value="cat3"> Categoria 3</option>
+                                                <option value="cat4"> Categoria 4</option>
+                                                <option value="cat5"> Categoria 5</option>        
+                                        </select>
+                                </div>
+                                <div class="form-outline form-white mb-4 row">
+                                        <label class="form-label col-6" style="text-align: right;">Sub-Categoría:</label>
+                                        <select name="tipocategoria" id="submenu" class="col-6">
+                                                
+                                        </select> 
+                                </div>
+                                
+                                <script>
+
+                                        var categorias={
+                                                cat1: ['SubCategoria1-1', 'SubCategoria1-2', 'SubCategoria1-3','SubCategoria1-4','SubCategoria1-5'],
+                                                cat2: ['SubCategoria2-1', 'SubCategoria2-2', 'SubCategoria2-3','SubCategoria2-4','SubCategoria2-5'],
+                                                cat3: ['SubCategoria3-1', 'SubCategoria3-2', 'SubCategoria3-3','SubCategoria3-4','SubCategoria3-5'],
+                                                cat4: ['SubCategoria4-1', 'SubCategoria4-2', 'SubCategoria4-3','SubCategoria4-4','SubCategoria4-5'],
+                                                cat5: ['SubCategoria5-1', 'SubCategoria5-2', 'SubCategoria5-3','SubCategoria5-4','SubCategoria5-5']
+                                        }
+
+                                        var main = document.getElementById('menu');
+                                        var sub = document.getElementById('submenu')
+
+                                        main.addEventListener('change' , function()
+                                        {
+                                                var selected_option = categorias[this.value];                                              
+                                                while(sub.options.length > 0){
+                                                        sub.options.remove(0);
+                                                }
+                                                Array.form(selected_option).forEach(function(el){
+                                                        let option = new option(el,el);
+                                                        sub.appendChild(option);       
+                                                        });
+                                        });
+
+
+
+
+
+
+
+                                        // function populate(s1,s2)
+                                        // {
+                                        //     var s1 = document.getElementById(s1);
+                                        //     var s2 = document.getElementById(s2);    
+                                
+                                        //     s2.innerHTML = "";
+                                
+                                        //     if(s1.value == "cat1")
+                                        //     {
+                                        //             var optionArray = ['SubCat1-1| SubCategoria1-1', 'SubCat1-2| SubCategoria1-2', 'SubCat1-3| SubCategoria1-3',
+                                        //             'SubCat1-4| SubCategoria1-4','SubCat1-5| SubCategoria1-5' ];
+                                        //     }
+                                        //     else if(s1.value == "cat2")
+                                        //     {
+                                        //             var optionArray = ['SubCat2-1| SubCategoria2-1', 'SubCat2-2| SubCategoria2-2', 'SubCat2-3| SubCategoria2-3',
+                                        //             'SubCat2-4| SubCategoria2-4','SubCat2-5| SubCategoria2-5' ];
+                                        //     }
+                                        //     else if(s1.value == "cat3")
+                                        //     {
+                                        //             var optionArray = ['SubCat3-1| SubCategoria3-1', 'SubCat3-2| SubCategoria3-2', 'SubCat3-3| SubCategoria3-3',
+                                        //             'SubCat3-4| SubCategoria3-4','SubCat3-5| SubCategoria3-5' ];
+                                        //     }
+                                        //     else if(s1.value == "cat4")
+                                        //     {
+                                        //             var optionArray = ['SubCat4-1| SubCategoria4-1', 'SubCat4-2| SubCategoria4-2', 'SubCat4-3| SubCategoria4-3',
+                                        //             'SubCat4-4| SubCategoria4-4','SubCat4-5| SubCategoria4-5' ];
+                                        //     }
+                                        //     else if(s1.value == "cat5")
+                                        //     {
+                                        //             var optionArray = ['SubCat5-1| SubCategoria5-1', 'SubCat5-2| SubCategoria5-2', 'SubCat5-3| SubCategoria5-3',
+                                        //             'SubCat5-4| SubCategoria5-4','SubCat5-5| SubCategoria5-5' ];
+                                        //     }
+                                
+                                        //     for(var option in optionArray)
+                                        //     {
+                                        //             var pair = optionArray[option].split("|");
+                                        //             var newoption = document.createElement("option");
+                                
+                                        //             newoption.value = pair[0];
+                                        //             newoption.innerHTML = pair[1];
+                                        //             s2.option.add(newoption);
+                                        //     }
+                                        // }
+                                </script>
+
+
+
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Crear</button>
+                                <!--<p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>-->
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            
+
 </form>
+

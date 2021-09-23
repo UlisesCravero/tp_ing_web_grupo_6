@@ -39,8 +39,8 @@ class SubCategoria(models.Model):
         return self.nombre
 
 class ServicioPrestado(models.Model):
-    nombre = models.CharField(max_length=255, blank = False)
-    descripcion = models.TextField(max_length=255, blank = False)
+    nombre = models.CharField(max_length=50, blank = False)
+    descripcion = models.TextField(max_length=150, blank = False)
     propietario = models.ForeignKey(User, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE)
