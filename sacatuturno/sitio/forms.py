@@ -34,8 +34,7 @@ class formularioUser(UserCreationForm):
 
 
 
-    def save(self, commit=True):     
-        print("estas en el save")   
+    def save(self, commit=True):      
         user = super(formularioUser, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['nombre']
@@ -54,4 +53,19 @@ class formularioProfesional(forms.ModelForm):
             'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'})
         }
 
-
+class formularioTunro(forms.ModelForm):
+    class Meta:
+        model = Turno
+        fields = ['servicio', 'cliente', 'fecha_inicio', 'fecha_fin']
+        widgets = {
+            'fecha_inicio': forms.DateTimeInput(
+                format='%Y-%m-%dT%H:%M',
+                attrs={'placeholder': 'Select a datetime',
+                       'type': 'datetime-local'
+                       }),
+            'fecha_fin': forms.DateTimeInput(
+                format='%Y-%m-%dT%H:%M',
+                attrs={'placeholder': 'Select a datetime',
+                       'type': 'datetime-local'
+                       }),   
+        }

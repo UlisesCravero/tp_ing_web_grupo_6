@@ -41,7 +41,7 @@
                     </div>
         
                     <div>
-                        <p class="text-center">No tienes cuenta? <a href="{% url 'crearcuenta' %}}" class="text-white-50 fw-bold">Registrarse</a></p>
+                        <p class="text-center">No tienes cuenta? <a class="link text-white-50 fw-bold" href= "{%url 'crearcuenta'%}">Registrarse</a></p>
                     </div>
     
                 </div>
@@ -50,6 +50,11 @@
         </div>
         </div>
     </section>
+
+    {% if request.user.is_active %}
+        <!-- <p>Su cuenta aún no fue activada</p> -->
+        <!-- <p> {{estadoActivacion}} </p> -->
+    {% endif %}
 </form>
 
 <!--  -->
