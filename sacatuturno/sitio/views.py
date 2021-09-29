@@ -19,6 +19,7 @@ from django.contrib.auth import (
     REDIRECT_FIELD_NAME, get_user_model, login as auth_login,
     logout as auth_logout, update_session_auth_hash,
 )
+from django.db.models import Q
 import secrets
 
 # Create your views here.
@@ -178,7 +179,19 @@ def registrarservicio(request):
 
 #cambiar nombre
 def servicios(request, id_subcategoria):
+    #import ipdb; ipdb.set_trace();
     servicios = ServicioPrestado.objects.filter(subcategoria_id = id_subcategoria)
+
+    query = request.GET.get('buscar_servicio')
+
+    if query:
+        servicios = servicios.filter(
+                Q(propietario__first_name__icontains=query) |
+                Q(propietario__last_name__icontains=query) |
+                Q(descripcion__icontains=query) |
+                Q(nombre__icontains=query)
+
+            ).distinct()
     return render(request, 'servicios.html', {'servicios': servicios})
 
 
@@ -231,3 +244,4 @@ def pedir_turno(request, servicio_id, id_user):
         'form': form
     }   
     return render(request,'turno.html', context)
+
