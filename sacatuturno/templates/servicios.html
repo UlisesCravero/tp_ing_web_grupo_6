@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="card-title"><p>{{item.propietario.first_name}} {{item.propietario.last_name}} </p> </div>
                     <div class="panel-text"><p>{{item.descripcion}}</p></div>
-                    <div class="panel-foocter"><p>Sacar turno</p></div>
+                    <div class="panel-foocter"><a href="{% url 'pedir_turno' item.id item.propietario.id %}">Sacar turno</a></div>
                 </div>
             </div> 
             {%endfor%}  

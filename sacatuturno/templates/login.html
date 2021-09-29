@@ -51,11 +51,15 @@
         </div>
     </section>
 
-    {% if request.user.is_active %}
-        <!-- <p>Su cuenta aún no fue activada</p> -->
-        <!-- <p> {{estadoActivacion}} </p> -->
-    {% endif %}
+    
 </form>
 
-<!--  -->
+{% for message in messages %}
+    
+    <div class="alert">
+        <a class="close" href="#" data-dismiss="alert">×</a>
+           {{ message }}
+    </div>
+
+{% endfor %}
 

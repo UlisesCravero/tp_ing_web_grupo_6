@@ -22,53 +22,41 @@
                                 <label class="form-label col-6" style="text-align: right;">Nombre de Usuario:</label>
                                 <a class="col-6"> 
                                     {{form.username}}
-                                </a>
-                                <!--<input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Contraseña</label>-->
+                                </a>                               
                             </div>
                             <div class="form-outline form-white mb-4 row">
                                 <label class="form-label col-6" style="text-align: right;">Nombre:</label>
                                 <a class="col-6"> 
                                     {{form.nombre}}
-                                </a>
-                                <!--<input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Contraseña</label>-->
+                                </a>                               
                             </div>
                             
                             <div class="form-outline form-white mb-4 row">
                                 <label class="form-label col-6" style="text-align: right;">Apellido:</label>
                                 <a class="col-6"> 
                                     {{form.apellido}}
-                                </a>
-                                <!--<input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Contraseña</label>-->
+                                </a>                               
                             </div>
 
                             <div class="form-outline form-white mb-4 row">
-                                <label class="form-label col-6" style="text-align: right;">Email:</label>
+                                <label type="email" class="form-label col-6" style="text-align: right;">Email:</label>
                                 <a class="col-6"> 
                                     {{form.email}}
-                                </a>
-                                <!--<input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Contraseña</label>-->
+                                </a>                              
                             </div>
 
                             <div class="form-outline form-white mb-4 row">
                                 <label class="form-label col-6" style="text-align: right;">Contraseña:</label>
                                 <a class="col-6"> 
                                     {{form.password1}}
-                                </a>
-                                <!--<input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Contraseña</label>-->
+                                </a>                                
                             </div>
 
                             <div class="form-outline form-white mb-4 row">
                                 <label class="form-label col-6 " style="text-align: right;">Repetir Contraseña:</label>
                                 <a class="col-6"> 
                                     {{form.password2}}
-                                </a>
-                                <!--<input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Contraseña</label>-->
+                                </a>                               
                             </div>
 
                             
@@ -82,24 +70,8 @@
             </div>
             </div>
         </div>
-        </section>
-
-    <!--
-    <label>Nombre de Usuario</label>
-    {{form.username}} <br>
-    <label>Nombre</label>
-    {{form.nombre}} <br>
-    <label>Apellido</label>
-    {{form.apellido}} <br>
-    <label>Email</label>
-    {{form.email}} <br>
-    <label>Contraseña</label>
-    {{form.password1}} <br>
-    <label>Confirmar Contraseña</label>
-    {{form.password2}} <br>
-    
-
-    <button type="submit">Crear</button>-->
+        </section>  
     
 </form>
+    
 {% endblock %}

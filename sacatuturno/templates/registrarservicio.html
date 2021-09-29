@@ -2,18 +2,7 @@
 
 <form method="post">
         {%csrf_token%}
-
-        <!-- <label>Nombre servicio</label>
-        {{form.nombre}} <br>
-        <label>Descripcion</label>
-        {{form.descripcion}} <br>
-        <label>Categoria</label>
-        {{form.categoria}} <br>
-        <label>Subcategoria</label>
-        {{form.subcategoria}} <br> -->
-
-        <!-- <button type="submit">Crear</button> -->
-        
+             
         <section class="vh-100 gradient-custom">
         <div class="container py-3 h-80">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -22,8 +11,11 @@
                 <div class="card-body mt-2 text-center">
         
                     <div class="mb-md-5 mt-md-4 pb-2">
-                
+                                {%if servicio  %}
+                                <h2 class="fw-bold mb-2 text-uppercase text-center">MODIFICAR SERVICIO </h2>
+                                {% else %}
                                 <h2 class="fw-bold mb-2 text-uppercase text-center">CREAR SERVICIO </h2>
+                                {%endif%}
                                 <p class="text-white-50 mb-5 text-center">Complete los campos solicitados</p>
                                                        
                                 
@@ -42,105 +34,39 @@
                                 </div>
                                 <div class="form-outline form-white mb-4 row">
                                         <label class="form-label col-6" style="text-align: right;">Categoría:</label>
-                                        <a class="col-6"> 
-                                                {{form.categoria}}
+                                        <a class="col-6">
+                                                {%if servicio %}
+                                                <select  name="categoria" onchange="mostrarSubcategorias()" id="id_categoria">
+                                                        <option value="{{servicio.categoria.id}}" selected="">{{servicio.categoria}}</option>
+                                                     
+                                                </select>                                                                                                     
+                                                {% else %}
+                                                        {{form.categoria}} 
+                                                {%endif%} 
+                                                
                                         </a>
                                 </div>
                                 <div class="form-outline form-white mb-4 row">
                                         <label class="form-label col-6" style="text-align: right;">Sub-Categoría:</label>
-                                        <select name="subcategoria" data-minimum-input-length="0" data-allow-clear="true" data-placeholder id="id_subcategoria"></select>
+                                        {%if servicio %}
+                                        <select  name="subcategoria" onchange="mostrarSubcategorias()" id="id_subcategoria">
+                                                <option value="{{servicio.subcategoria.id}}" selected="">{{servicio.subcategoria}}</option>
+                                             
+                                        </select>                                                                                                        
+                                        {% else %}
+                                                <select name="subcategoria" data-minimum-input-length="0" data-allow-clear="true" data-placeholder id="id_subcategoria"></select> 
+                                        {%endif%} 
+                                        
                                 </div> 
                                 
-
-                                <!--<div class="form-outline form-white mb-4 row">
-                                        <label class="form-label col-6" style="text-align: right;">Categoría:</label>
-                                        <select class="custom-select col-6" name="categoria" id="menu" onchange="populate( 'this.value' ,'select2')">  
-                                                <option value=""> Seleccione una categoria </option>
-                                                <option value="cat1"> Categoria 1</option>
-                                                <option value="cat2"> Categoria 2</option>
-                                                <option value="cat3"> Categoria 3</option>
-                                                <option value="cat4"> Categoria 4</option>
-                                                <option value="cat5"> Categoria 5</option>        
-                                        </select>
-                                </div>
-                                <div class="form-outline form-white mb-4 row">
-                                        <label class="form-label col-6" style="text-align: right;">Sub-Categoría:</label>
-                                        <select name="tipocategoria" id="submenu" class="col-6">
-                                                
-                                        </select> 
-                                </div>-->
                                 
-                                <script>
-
-                                        function mostrarSubcategorias(){
-                                        var x = document.getElementById("id_categoria").value
-                                        $.ajax({
-                                                url: "../traerSubcategorias/" + x,
-                                                type: 'GET',
-                                                dataType: 'json',
-                                                success: function(data){
-                                                        var select = document.getElementById("id_subcategoria");
-                                                        for (let i = select.options.length; i >= 0; i--) {
-                                                                select.remove(i);
-                                                        }
-
-                                                        if (data.length != 0){
-                                                                for (let i = 0; i < data.length; i++){
-                                                                        var option = document.createElement('option');
-                                                                        option.value = data[i].pk;
-                                                                        option.text = data[i].fields.nombre;
-                                                                        select.appendChild(option);
-                                                                }
-                                                        }
-                                                        else{
-                                                                var option = document.createElement('option');
-                                                                option.text = "No existen subcategorias registradas";
-                                                                option.disabled = true;
-                                                                select.appendChild(option);
-                                                        }
-                                                        },
-                                                error: function() {
-                                                        var select = document.getElementById("id_subcategoria");
-                                                        for (let i = select.options.length; i >= 0; i--) {
-                                                                select.remove(i);
-                                                        }
-                                                        }
-                                        });
-
-                                        }
-
-
-
-
-                                        /*var categorias={
-                                                cat1: ['SubCategoria1-1', 'SubCategoria1-2', 'SubCategoria1-3','SubCategoria1-4','SubCategoria1-5'],
-                                                cat2: ['SubCategoria2-1', 'SubCategoria2-2', 'SubCategoria2-3','SubCategoria2-4','SubCategoria2-5'],
-                                                cat3: ['SubCategoria3-1', 'SubCategoria3-2', 'SubCategoria3-3','SubCategoria3-4','SubCategoria3-5'],
-                                                cat4: ['SubCategoria4-1', 'SubCategoria4-2', 'SubCategoria4-3','SubCategoria4-4','SubCategoria4-5'],
-                                                cat5: ['SubCategoria5-1', 'SubCategoria5-2', 'SubCategoria5-3','SubCategoria5-4','SubCategoria5-5']
-                                        }
-
-                                        var main = document.getElementById('menu');
-                                        var sub = document.getElementById('submenu')
-
-                                        main.addEventListener('change' , function()
-                                        {
-                                                var selected_option = categorias[this.value];                                              
-                                                while(sub.options.length > 0){
-                                                        sub.options.remove(0);
-                                                }
-                                                Array.form(selected_option).forEach(function(el){
-                                                        let option = new option(el,el);
-                                                        sub.appendChild(option);       
-                                                        });
-                                        });*/
-
-                                </script>
-
-
-
-                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Crear</button>
-                                <!--<p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>-->
+                                
+                                {%if servicio %}
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Guardar Cambios</button>  
+                                {% else %}
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Crear</button>  
+                                {%endif%}
+                                                            
                                 
                             </div>
                         </div>
@@ -154,3 +80,52 @@
 
 </form>
 
+{% for message in messages %}
+    
+    <div class="alert">
+        <a class="close" href="#" data-dismiss="alert">×</a>
+           {{ message }}
+    </div>
+
+{% endfor %}
+
+<script>
+
+        function mostrarSubcategorias(){
+        var x = document.getElementById("id_categoria").value
+        $.ajax({
+                url: "../traerSubcategorias/" + x,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data){
+                        var select = document.getElementById("id_subcategoria");
+                        for (let i = select.options.length; i >= 0; i--) {
+                                select.remove(i);
+                        }
+
+                        if (data.length != 0){
+                                for (let i = 0; i < data.length; i++){
+                                        var option = document.createElement('option');
+                                        option.value = data[i].pk;
+                                        option.text = data[i].fields.nombre;
+                                        select.appendChild(option);
+                                }
+                        }
+                        else{
+                                var option = document.createElement('option');
+                                option.text = "No existen subcategorias registradas";
+                                option.disabled = true;
+                                select.appendChild(option);
+                        }
+                        },
+                error: function() {
+                        var select = document.getElementById("id_subcategoria");
+                        for (let i = select.options.length; i >= 0; i--) {
+                                select.remove(i);
+                        }
+                        }
+        });
+
+        }
+
+</script>

@@ -12,32 +12,30 @@
         {% if request.user.is_active %}
         <div class="container">
             <div class="row">
-                <div class="col-6">
-                    <div class="card">
-                        <img class="card-img-top" src="" alt="Card image cap">
-                        <div class="card-body" href="{%url 'registrarservicio'%}"> Ofrecer servicio </div>
-                    </div>
+                <div class="col-3">
+                    <a href="{%url 'categorias'%}">
+                        <div class="card">
+                            <img class="card-img-top" src="img/turno.png" alt="Card image cap">
+                            <div class="card-body"> Sacar un turno </div>
+                        </div>
+                    </a>                    
                 </div>
-                <div class="col-6">
-                    <div class="card">
-                        <img class="card-img-top" src="" alt="Card image cap">
-                        <div class="card-body" href="{%url 'registrarservicio'%}"> Sacar un turno </div>
-                    </div>
+                <div class="col-3">
+                    <a href="{%url 'registrarservicio'%} "><div class="card">
+                        <img class="card-img-top" src="img/servicio.png" alt="Card image cap">
+                        <div class="card-body"> Ofrecer servicio </div>
+                    </div></a>
+                </div>                
+            </div>                      
+        </div>   
+        {% endif %}
+
+            {% if estadoActivacion %}
+                <div class="alert alert-secondary" role="alert">
+                    {{estadoActivacion}}
                 </div>
-            </div>           
             
-        </div>    
-        {% endif %}
-
-        {% if estadoActivacion %}
-            <div class="alert alert-secondary" role="alert">
-                {{estadoActivacion}}
-             </div>
-        
-        {% endif %}
-
-
-
+            {% endif %}
         {% endblock %}
     </div>
 
