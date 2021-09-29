@@ -1,7 +1,10 @@
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm       #importamos formularios de django
-from django.contrib.auth.models import User                  #importamos usarios de django
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm       #importamos formularios de django
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
+
+from django.forms import widgets                  #importamos usarios de django
 from .models import *
 
 class formularioUser(UserCreationForm):
@@ -33,8 +36,7 @@ class formularioUser(UserCreationForm):
 
 
 
-    def save(self, commit=True):     
-        print("estas en el save")   
+    def save(self, commit=True):      
         user = super(formularioUser, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['nombre']
@@ -49,4 +51,30 @@ class formularioProfesional(forms.ModelForm):
     class Meta:
         model = ServicioPrestado
         fields = ['nombre', 'descripcion', 'categoria', 'subcategoria']
+        widgets = {
+            'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'})
+        }
 
+    def init(self, args, **kwargs):
+        super().init(args, **kwargs)
+
+        self.fields["categoria"].required = False
+        self.fields["categoria"].required = False
+
+
+class formularioTurno(forms.ModelForm):
+    class Meta:
+        model = Turno
+        fields = ['fecha_inicio', 'fecha_fin']
+        widgets = {
+            'fecha_inicio': forms.DateTimeInput(
+                format='%Y-%m-%dT%H:%M',
+                attrs={'placeholder': 'Select a datetime',
+                    'type': 'datetime-local'
+                    }),
+            'fecha_fin': forms.DateTimeInput(
+                format='%Y-%m-%dT%H:%M',
+                attrs={'placeholder': 'Select a datetime',
+                    'type': 'datetime-local'
+                    }),   
+        }
