@@ -1,11 +1,26 @@
 {% include "header.html" %}
+{% load static %}
+<script src="{% static 'js/functions.js' %}"></script>
+
 <form method="post">
     {%csrf_token%}
 
 
     {{form.as_p}}
 
-    <button type="submit">crear</button>
+    <button id= 'botoncito' type="submit">crear</button>
+    <style>
+        #calendar {
+          max-width: 1100px;
+          margin: 0 auto;
+        }
+      
+      </style>
+    <div style="display: none" id="jsonData" data-json="{{ turnos }}"></div>
+    
+    <div id='calendar'></div>
+
 
     
 </form>
+

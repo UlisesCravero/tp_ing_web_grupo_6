@@ -1,4 +1,5 @@
 #from sacatuturno.sacatuturno.settings import SECRET_KEY
+from re import X
 from django.contrib.auth.views import LoginView
 from .forms import *
 from django.shortcuts import get_object_or_404, render, redirect, reverse
@@ -21,9 +22,12 @@ from django.contrib.auth import (
 )
 from django.db.models import Q
 import secrets
+import json
+from types import SimpleNamespace
 
 # Create your views here.
 
+# import ipdb; ipdb.set_trace(); para debuguear, n->avanzo, c->hasta el final
 
 
 def home(request):
@@ -99,13 +103,28 @@ def login(request):
 
 
 
-
+def devolverNombreServicio(id):
+    intid = int(id)
+    return ServicioPrestado.objects.get(id = intid).nombre
 
 def perfil(request, id):
     servicios = ServicioPrestado.objects.filter(propietario__id = id)
-    return render(request,'perfil.html', {'servicios': servicios})
+    turnos = serializers.serialize('json', Turno.objects.filter(cliente__id = id)) 
+    # Parse JSON into an object with attributes corresponding to dict keys.
+    turnosJson = json.loads(turnos, object_hook=lambda d: SimpleNamespace(**d))    
+    #import ipdb; ipdb.set_trace();
+    for turno in turnosJson:
+        #turno.a = lambda: None
+        setattr(turno, 'nombreServicio', devolverNombreServicio(turno.fields.servicio))
+        #turno['nombreServicio'] = devolverNombreServicio(turno.fields.servicio)
+    context = {
+        'servicios': servicios,
+        'turnos': json.dumps(turnosJson, default=lambda , indent=2)
 
 
+
+    }
+    return render(request,'perfil.html', context)
 
 
 
@@ -238,10 +257,13 @@ def pedir_turno(request, servicio_id, id_user):
             turno.save()
             return HttpResponseRedirect(reverse('perfil', kwargs={'id': id_user})) 
     else:
-        form = formularioTurno()    
+        form = formularioTurno()
+        #import ipdb; ipdb.set_trace();
+        turnos = serializers.serialize('json', Turno.objects.filter(servicio__id = servicio_id))    
      
     context = {
-        'form': form
+        'form': form,
+        'turnos': turnos 
     }   
     return render(request,'turno.html', context)
 

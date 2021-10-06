@@ -67,11 +67,13 @@ class ServicioPrestado(models.Model):
 
 
 
+
 class Turno(models.Model):
     servicio = models.ForeignKey(ServicioPrestado, on_delete=models.CASCADE)
     cliente = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha_inicio = models.DateTimeField(verbose_name='Fecha inicio')
     fecha_fin = models.DateTimeField(verbose_name='Fecha fin')
+
     
 
     
