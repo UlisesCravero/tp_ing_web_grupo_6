@@ -109,20 +109,19 @@ def devolverNombreServicio(id):
 
 def perfil(request, id):
     servicios = ServicioPrestado.objects.filter(propietario__id = id)
-    turnos = serializers.serialize('json', Turno.objects.filter(cliente__id = id)) 
+    turnos = Turno.objects.filter(cliente__id = id)
     # Parse JSON into an object with attributes corresponding to dict keys.
-    turnosJson = json.loads(turnos, object_hook=lambda d: SimpleNamespace(**d))    
-    #import ipdb; ipdb.set_trace();
-    for turno in turnosJson:
-        #turno.a = lambda: None
-        setattr(turno, 'nombreServicio', devolverNombreServicio(turno.fields.servicio))
-        #turno['nombreServicio'] = devolverNombreServicio(turno.fields.servicio)
+    ## import ipdb; ipdb.set_trace();
+    turnosResponse = []
+    for turno in turnos:
+        turnosResponse.append({ 
+            'nombreServicio':turno.servicio.nombre, 
+            'fecha_fin': turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
+        })
     context = {
         'servicios': servicios,
-        'turnos': json.dumps(turnosJson, default=lambda , indent=2)
-
-
-
+        'turnos': json.dumps(turnosResponse)
     }
     return render(request,'perfil.html', context)
 
