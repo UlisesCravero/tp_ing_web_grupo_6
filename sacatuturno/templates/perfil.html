@@ -39,6 +39,9 @@
         </div>
     </div>
 
+    <h2 class="leftalign colorcito">Mis Turnos: </h2>
+    <div id='calendar'></div>
+
     <div class="container">            
         {%for servicio in servicios %}        
         <div class="card">
@@ -53,7 +56,9 @@
             </div>
             </div>
         {% empty %}
-            <h1>No posee servicios</h1>
+            <h1>Aun no posee servicios</h1>
+            <h3>Si desea ofrecer algun servicio, haga click aqui:  <a href="{%url 'registrarservicio'%} "> <button>OFRECER SERVICIO </button> </a></h3>
+
         {% endfor %}
     </div>
     <div id="turnos"></div>
@@ -69,7 +74,7 @@
 
 <div style="display: none" id="jsonData" data-json="{{ turnos }}"></div>
 
-<div id='calendar'></div>
+
 
 <script>
         

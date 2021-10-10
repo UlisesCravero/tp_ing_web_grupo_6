@@ -1,5 +1,35 @@
 textarea {
     resize: none;
-    width: 200px;
+    width: 220px;
     height: 60px;
+}
+
+.anchocien{
+    width: 220px;
+    height: 30px;
+}
+
+.leftalign{
+    margin-left: 200px;
+}
+
+.rightalign{
+    text-align: right;
+}
+
+.colorcito{
+    color: rgb(201, 183, 22);
+}
+
+.cajaborde{
+    border-radius: 4rem;
+}
+
+.letracaja{
+    font-size: 20px;
+}
+
+.titulocaja{
+    font-size: 50px;
+    text-decoration:underline;
 }
