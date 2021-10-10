@@ -5,14 +5,14 @@
     <div class="container py-3 h-80">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-10 col-lg-8 col-xl-8">
-                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card bg-dark text-white cajaborde" >
                     <div class="card-body mt-2 text-center">       
                         <div class="mb-md-5 mt-md-4 pb-2">       
                             <h2 class="fw-bold mb-4 text-uppercase titulocaja text-center colorcito">Bienvenido {{request.user.username}}! </h2>
                                                                     
                             <div class="form-outline form-white mb-4 row" >
                                 <label class="form-label col-6 letracaja rightalign">Nombre: </label>
-                                <div class="col-6 leftalign " style="text-align: left; color: white;" > 
+                                <div class="col-6 leftalign " > 
                                     {{request.user.first_name}}
                                 </div>
                             </div>
