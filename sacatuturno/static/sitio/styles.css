@@ -17,6 +17,14 @@ h2.leftalign{
     margin-left: 200px;
 }
 
+.estiloheader{
+    margin-left: 900px;
+}
+
+.fondoheader{
+    background-color: var(--bs-dark);
+}
+
 .rightalign{
     text-align: right;
 }
