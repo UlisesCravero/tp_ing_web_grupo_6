@@ -10,11 +10,21 @@ textarea {
 }
 
 .leftalign{
+    text-align: left;
+}
+
+h2.leftalign{
     margin-left: 200px;
 }
 
 .rightalign{
     text-align: right;
+}
+
+button.rightalign{
+    float: right;
+    margin: 10px;
+    
 }
 
 .colorcito{
