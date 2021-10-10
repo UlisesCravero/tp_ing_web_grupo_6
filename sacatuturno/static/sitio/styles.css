@@ -21,6 +21,10 @@ h2.leftalign{
     text-align: right;
 }
 
+.centeralign{
+    text-align: center;
+}
+
 button.rightalign{
     float: right;
     margin: 10px;
@@ -29,6 +33,10 @@ button.rightalign{
 
 .colorcito{
     color: rgb(201, 183, 22);
+}
+
+.negrita{
+    font-weight: 900 ;
 }
 
 .cajaborde{
@@ -42,4 +50,9 @@ button.rightalign{
 .titulocaja{
     font-size: 50px;
     text-decoration:underline;
+}
+
+.estilohome{
+    font-size: 120px;
+    bottom: 50px;
 }
