@@ -7,26 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="{% static 'sitio/styles.css' %}">
     <link rel="stylesheet" href="{% static 'fullcalendar/main.css' %}">
     <title></title>
 </head>
 <body>   
-      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--bs-dark);">
+      <nav class="navbar navbar-expand-lg navbar-dark fondoheader">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}"><strong>Saca tu Turno</strong></a>
+            <a class="navbar-brand negrita" href="{% url 'home' %}"> Saca tu Turno </a>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
 
                     {% if request.user.is_active %}
                       <!-- <li class="nav-item" style="margin-left: 500px;"><a class ="nav-link" href="{%url 'registrarservicio'%}">Ofrecer servicio</a></li> -->
-                      <li class="nav-item" style="margin-left: 900px;"><a class ="nav-link" href="{% url 'perfil' request.user.id %}">Perfil</a></li>
+                      <li class="nav-item estiloheader"><a class ="nav-link" href="{% url 'perfil' request.user.id %}">Perfil</a></li>
                       <li class="nav-item"><a class ="nav-link" href="{%url 'logout'%}">Cerrar Sesion</a></li>
                       
                     {% else %}
-                      <li class="nav-item" style="margin-left: 600px;"><a class ="nav-link" href= "{%url 'login'%}">Ingresar</a></li>
-                      <li class="nav-item" style="margin-left:30px;"><a class ="nav-link" href= "{%url 'crearcuenta'%}">Crear Cuenta</a></li>
+                      <li class="nav-item estiloheader" ><a class ="nav-link" href= "{%url 'login'%}">Ingresar</a></li>
+                      <li class="nav-item" ><a class ="nav-link" href= "{%url 'crearcuenta'%}">Crear Cuenta</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -40,7 +40,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="{% static 'fullcalendar/main.js' %}"></script>
     <script src="{% static 'fullcalendar/locales-all.js' %}"></script>
-
 
     
   </body>

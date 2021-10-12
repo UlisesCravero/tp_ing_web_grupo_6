@@ -1,64 +1,111 @@
 {% include "header.html" %}
-<form method="post">
-    {%csrf_token%}
 
-    <section class="vh-100 gradient-custom">
-        <div class="container py-3 h-80">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                        <div class="card-body mt-2 text-center">       
-                            <div class="mb-md-5 mt-md-4 pb-2">       
-                                <h2 class="fw-bold mb-4 text-uppercase text-center">Bienvenido {{request.user.username}}! </h2>
-                                                                        
-                                <div class="form-outline form-white mb-4 row" >
-                                    <label class="form-label col-6" style="text-align: right;">Nombre: </label>
-                                    <p class="col-6" style="text-align: left; color: white;" > 
-                                        {{request.user.first_name}}
-                                    </p>
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-3 h-80">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-10 col-lg-8 col-xl-8">
+                <div class="card bg-dark text-white cajaborde" >
+                    <div class="card-body mt-2 text-center">       
+                        <div class="mb-md-5 mt-md-4 pb-2">       
+                            <h2 class="fw-bold mb-4 text-uppercase titulocaja text-center colorcito">Bienvenido {{request.user.username}}! </h2>
+                                                                    
+                            <div class="form-outline form-white mb-4 row" >
+                                <label class="form-label col-6 letracaja rightalign">Nombre: </label>
+                                <div class="col-6 leftalign " > 
+                                    {{request.user.first_name}}
                                 </div>
-                
-                                <div class="form-outline form-white mb-4 row">
-                                    <label class="form-label col-6" style="text-align: right;">Apellido:</label>
-                                    <p class="col-6" style="text-align: left; color: white;"> 
-                                        {{request.user.last_name}}
+                            </div>
+            
+                            <div class="form-outline form-white mb-4 row">
+                                <label class="form-label col-6 letracaja rightalign" >Apellido:</label>
+                                <p class="col-6 leftalign"> 
+                                    {{request.user.last_name}}
+                                </p>
+                            </div>
+                            <div class="form-outline form-white mb-4 row">
+                                    <label class="form-label col-6 letracaja rightalign" >Email:</label>
+                                    <p class="col-6 leftalign "> 
+                                        {{request.user.email}}
                                     </p>
-                                </div>
-                                <div class="form-outline form-white mb-4 row">
-                                        <label class="form-label col-6" style="text-align: right;">Email:</label>
-                                        <p class="col-6" style="text-align: left; color: white;"> 
-                                            {{request.user.email}}
-                                        </p>
-                                </div>                                
-                                <a class="btn btn-outline-light btn-lg px-5" type="submit" href= "{% url 'home' %}" >Volver</a>
-                                
-                            </div>         
-                
-                        </div>
+                            </div>                                
+                            <a class="btn btn-outline-light btn-lg px-5 colorcito" type="submit" href= "{% url 'home' %}" >Volver</a>
+                            
+                        </div>         
+            
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="container">            
-            {%for servicio in servicios %}        
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">{{servicio.nombre}}</h4>
-                    <h6 class="card-subtitle mb-2 text-muted">{{servicio.categoria}}</h6>
-                    <p class="card-text">
-                    {{servicio.descripcion}}
-                    </p>
-                    <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link">Editar</a>
-                    <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link">Eliminar</a>
-                </div>
-              </div>
-            {% empty %}
-               <h1>No posee servicios</h1>
-            {% endfor %}
-        </div>
-    </section>
+    <h2 class="leftalign colorcito mt-3">Mis Turnos: </h2>
+    <div id='calendar'></div>
 
+    <div class="container mt-5 mb-5">            
+        {%for servicio in servicios %}        
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title letracaja colorcito text-uppercase">{{servicio.nombre}}</h4>
+                <h6 class="card-subtitle letracaja mb-2 text-muted">{{servicio.categoria}}</h6>
+                <p class="card-text"> Descripcion: {{servicio.descripcion}}</p>
+
+                <button class="rightalign colorcito"> <p href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link">Editar</p> </button>
+                <button class="rightalign colorcito"> <p href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link">Eliminar</p> </button>
+                <button class="rightalign colorcito"> <p href="{% url 'agenda' servicio.id %}" class="card-link">Agenda</p> </button>
+                
+                
+            </div>
+            </div>
+        {% empty %}
+            <h1>Aun no posee servicios</h1>
+            <h3>Si desea ofrecer algun servicio, haga click aqui:  <a href="{%url 'registrarservicio'%} "> <button>OFRECER SERVICIO </button> </a></h3>
+
+        {% endfor %}
+    </div>
+    <div id="turnos"></div>
+</section>
+
+<style>
+    #calendar {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+  
+</style>
+
+<div style="display: none" id="jsonData" data-json="{{ turnos }}"></div>
+
+
+
+<script>
+        
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            slotMinTime: "07:00:00",
+            slotMaxTime: "21:00:00",
+            headerToolbar: {
+            center: 'addEventButton'
+            },
+        });
+        var data = JSON.parse(document.querySelector("#jsonData").getAttribute('data-json'));     
+        //console.log(data);
+        for (let index = 0; index < data.length; index++) {
+            calendar.addEvent({
+                title: data[index].nombreServicio,
+                start: data[index].fecha_inicio,
+                end: data[index].fecha_fin,
+                allDay: false
+                });  
+        }
     
-    
-</form>
+        calendar.render();
+    });
+
+</script>
