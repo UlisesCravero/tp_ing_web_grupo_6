@@ -52,7 +52,8 @@ class formularioProfesional(forms.ModelForm):
         model = ServicioPrestado
         fields = ['nombre', 'descripcion', 'categoria', 'subcategoria']
         widgets = {
-            'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'})
+            'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'},),
+            'days': forms.CheckboxSelectMultiple 
         }
 
     def init(self, args, **kwargs):

@@ -13,6 +13,7 @@ urlpatterns = [
     path('login/', login, name = 'login'),
     path('logout/', LogoutView.as_view(template_name = 'logout.html'), name= 'logout'),
     path('perfil/<int:id>/', login_required(perfil), name='perfil'),
+    path('agenda/', login_required(agenda), name='agenda'),
     path('accounts/confirm/<str:activation_key>', register_confirm, name="activation"),
     path('categorias/', categorias, name='categorias'),
     path('paginaprivada/', login_required(paginaprivada), name='paginaprivada'),

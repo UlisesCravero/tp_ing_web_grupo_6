@@ -165,13 +165,12 @@ def categorias(request):
     return render(request, 'categorias.html', {'categorias': categorias})
 
 
-
-
-
 def subcategoria(request, id):
     subcategoria = SubCategoria.objects.filter(categoria_id = id)
     return render(request, 'subcategoria.html', {'subcategoria': subcategoria})
 
+def agenda(request):
+    return render(request, 'agenda.html', {})
 
 
 

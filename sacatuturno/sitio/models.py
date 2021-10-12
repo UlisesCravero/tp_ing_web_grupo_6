@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields import DateTimeField
 import datetime
+from sitio import myFields
 
 # Create your models here.
 
@@ -53,19 +54,18 @@ class SubCategoria(models.Model):
         return self.nombre
 
 
-
+class Days(models.Model):
+    day = models.CharField(max_length=8)
 class ServicioPrestado(models.Model):
     nombre = models.CharField(max_length=50, blank = False)       # NO LLEVA NOMBRE EL SERVICIO PRESTADO
     descripcion = models.TextField(max_length=150, blank = False)
     propietario = models.ForeignKey(User, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, blank = True, null= True)
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, blank = True, null= True)
+    diasAtencion = models.ManyToManyField(Days)
 
     def __str__(self):
         return self.nombre
-
-
-
 
 
 class Turno(models.Model):

@@ -50,6 +50,8 @@
                 </p>
                 <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link">Editar</a>
                 <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link">Eliminar</a>
+                <a href="{% url 'agenda' request.user.id %}" class="card-link">Agenda</a>
+
             </div>
             </div>
         {% empty %}
