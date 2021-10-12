@@ -169,8 +169,19 @@ def subcategoria(request, id):
     subcategoria = SubCategoria.objects.filter(categoria_id = id)
     return render(request, 'subcategoria.html', {'subcategoria': subcategoria})
 
-def agenda(request):
-    return render(request, 'agenda.html', {})
+def agenda(request, servicio_id):
+    turnos = Turno.objects.filter(servicio__id = servicio_id)
+    turnosResponse = []
+    for turno in turnos:
+        turnosResponse.append({ 
+            'nombreServicio':turno.servicio.nombre, 
+            'fecha_fin': turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
+        })
+    context = {
+        'turnos': json.dumps(turnosResponse)
+    }
+    return render(request, 'agenda.html', context)
 
 
 
