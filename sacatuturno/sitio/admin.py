@@ -6,6 +6,8 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 class ServicioPrestadoAdmin(admin.ModelAdmin):
     list_display = ("nombre", "id", "descripcion")
+class DiasAdmin(admin.ModelAdmin):
+    list_display = ("day", "id")
 
 
 class SubCategoriaAdmin(admin.ModelAdmin):
@@ -18,3 +20,4 @@ admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(ServicioPrestado, ServicioPrestadoAdmin)
 admin.site.register(SubCategoria, SubCategoriaAdmin)
 admin.site.register(Turno, TurnoAdmin)
+admin.site.register(Days, DiasAdmin)

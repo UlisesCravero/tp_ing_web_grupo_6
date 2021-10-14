@@ -37,8 +37,13 @@ button.rightalign{
     float: right;
     margin: 10px;
     
+    
 }
-
+.luisito {
+    color: black;
+    margin: 0 auto !important;
+    text-decoration: none;
+}
 .colorcito{
     color: rgb(201, 183, 22);
 }
@@ -64,3 +69,4 @@ button.rightalign{
     font-size: 120px;
     bottom: 50px;
 }
+

@@ -55,7 +55,11 @@ class SubCategoria(models.Model):
 
 
 class Days(models.Model):
-    day = models.CharField(max_length=8)
+    day = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return self.day
+
 class ServicioPrestado(models.Model):
     nombre = models.CharField(max_length=50, blank = False)       # NO LLEVA NOMBRE EL SERVICIO PRESTADO
     descripcion = models.TextField(max_length=150, blank = False)
@@ -63,7 +67,7 @@ class ServicioPrestado(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, blank = True, null= True)
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, blank = True, null= True)
     diasAtencion = models.ManyToManyField(Days)
-    
+    duracionTurno = models.IntegerField(default = 30, null= False, blank = False)
 
     def __str__(self):
         return self.nombre

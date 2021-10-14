@@ -59,7 +59,18 @@
                                         </a>
                                 </div> 
                                 
-                                
+                                <div class="form-outline form-white mb-4 row" >
+                                    <label class="form-label letracaja col-6 rightalign" >Días disponible: </label>   
+                                        {{form.diasAtencion}}
+                                    
+                                </div>
+
+                                <div class="form-outline form-white mb-4 row" >
+                                        <label class="form-label letracaja col-6 rightalign"  >Duración del turno (minutos): </label>
+                                        <a class="col-6 anchocien" > 
+                                            {{form.duracionTurno}}
+                                        </a>
+                                </div>
                                 
                                 {%if servicio %}
                                 <button class="btn btn-outline-light btn-lg px-5 colorcito" type="submit">Guardar Cambios</button>  

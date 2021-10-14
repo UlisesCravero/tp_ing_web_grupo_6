@@ -190,9 +190,14 @@ def registrarservicio(request):
     args.update(csrf(request))
     if request.method == 'POST':
         form = formularioProfesional(request.POST)
+        import ipdb; ipdb.set_trace();
         if form.is_valid():
             servicio = form.save(commit=False)
             servicio.propietario_id = request.user.id
+            servicio.save()
+            dias = form.cleaned_data['diasAtencion']
+            for dia in dias:
+                servicio.diasAtencion.add(dia) 
             servicio.save()
             return render(request, 'home.html', {'estadoServicio': 'Proceso de alta correcto'})   
     else:
