@@ -1,11 +1,22 @@
-{% extends "base.html" %}
+{% include "header.html" %}
 
 {%block content %}
     <h1> Categorias </h1>
-    <ul>
+    <div class="container">
         {%for categoria in categorias %}
-        <li><a href="{% url 'subcategoria' categoria.id %}">{{categoria.nombre}}</a></li>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                {{categoria.nombre}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for subcategoria in categoria.traerSubcategorias.all %}
+                    <a class="dropdown-item" href="{% url 'servicios' subcategoria.id %}">{{subcategoria.nombre}}</a>
+                {% endfor %}
+            </div>
+        </div> 
+        <br>
         {%endfor%}  
-    </ul>
+    </div>
+
 
 {% endblock %}

@@ -1,4 +1,4 @@
-{% include "header.html" %}
+{% include "base.html" %}
 
 
 <section class="vh-100 gradient-custom">
@@ -87,7 +87,7 @@
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
+            initialView: 'dayGridMonth',
             slotMinTime: "07:00:00",
             slotMaxTime: "21:00:00",
             weekends: false,
