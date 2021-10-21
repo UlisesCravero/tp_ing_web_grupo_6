@@ -1,0 +1,71 @@
+textarea {
+    resize: none;
+    width: 220px;
+    height: 60px;
+}
+
+.anchocien{
+    width: 220px;
+    height: 30px;
+}
+
+.leftalign{
+    text-align: left;
+}
+
+h2.leftalign{
+    margin-left: 200px;
+}
+
+.estiloheader{
+    margin-left: 900px;
+}
+
+.fondoheader{
+    background-color: var(--bs-dark);
+}
+
+.rightalign{
+    text-align: right;
+}
+
+.centeralign{
+    text-align: center;
+}
+
+button.rightalign{
+    float: right;
+    margin: 10px;
+    
+    
+}
+.luisito {
+    color: black;
+    margin: 0 auto !important;
+    text-decoration: none;
+}
+.colorcito{
+    color: rgb(201, 183, 22);
+}
+
+.negrita{
+    font-weight: 900 ;
+}
+
+.cajaborde{
+    border-radius: 4rem;
+}
+
+.letracaja{
+    font-size: 20px;
+}
+
+.titulocaja{
+    font-size: 50px;
+    text-decoration:underline;
+}
+
+.estilohome{
+    font-size: 120px;
+    bottom: 50px;
+}

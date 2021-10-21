@@ -1,4 +1,5 @@
 #from sacatuturno.sacatuturno.settings import SECRET_KEY
+from re import X
 from django.contrib.auth.views import LoginView
 from .forms import *
 from django.shortcuts import get_object_or_404, render, redirect, reverse
@@ -21,9 +22,12 @@ from django.contrib.auth import (
 )
 from django.db.models import Q
 import secrets
+import json
+from types import SimpleNamespace
 
 # Create your views here.
 
+# import ipdb; ipdb.set_trace(); para debuguear, n->avanzo, c->hasta el final
 
 
 def home(request):
@@ -99,13 +103,27 @@ def login(request):
 
 
 
-
+def devolverNombreServicio(id):
+    intid = int(id)
+    return ServicioPrestado.objects.get(id = intid).nombre
 
 def perfil(request, id):
     servicios = ServicioPrestado.objects.filter(propietario__id = id)
-    return render(request,'perfil.html', {'servicios': servicios})
-
-
+    turnos = Turno.objects.filter(cliente__id = id)
+    # Parse JSON into an object with attributes corresponding to dict keys.
+    ## import ipdb; ipdb.set_trace();
+    turnosResponse = []
+    for turno in turnos:
+        turnosResponse.append({ 
+            'nombreServicio':turno.servicio.nombre, 
+            'fecha_fin': turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
+        })
+    context = {
+        'servicios': servicios,
+        'turnos': json.dumps(turnosResponse)
+    }
+    return render(request,'perfil.html', context)
 
 
 
@@ -147,13 +165,23 @@ def categorias(request):
     return render(request, 'categorias.html', {'categorias': categorias})
 
 
-
-
-
 def subcategoria(request, id):
     subcategoria = SubCategoria.objects.filter(categoria_id = id)
     return render(request, 'subcategoria.html', {'subcategoria': subcategoria})
 
+def agenda(request, servicio_id):
+    turnos = Turno.objects.filter(servicio__id = servicio_id)
+    turnosResponse = []
+    for turno in turnos:
+        turnosResponse.append({ 
+            'nombreServicio':turno.servicio.nombre, 
+            'fecha_fin': turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
+        })
+    context = {
+        'turnos': json.dumps(turnosResponse)
+    }
+    return render(request, 'agenda.html', context)
 
 
 
@@ -162,9 +190,14 @@ def registrarservicio(request):
     args.update(csrf(request))
     if request.method == 'POST':
         form = formularioProfesional(request.POST)
+        import ipdb; ipdb.set_trace();
         if form.is_valid():
             servicio = form.save(commit=False)
             servicio.propietario_id = request.user.id
+            servicio.save()
+            dias = form.cleaned_data['diasAtencion']
+            for dia in dias:
+                servicio.diasAtencion.add(dia) 
             servicio.save()
             return render(request, 'home.html', {'estadoServicio': 'Proceso de alta correcto'})   
     else:
@@ -238,10 +271,13 @@ def pedir_turno(request, servicio_id, id_user):
             turno.save()
             return HttpResponseRedirect(reverse('perfil', kwargs={'id': id_user})) 
     else:
-        form = formularioTurno()    
+        form = formularioTurno()
+        #import ipdb; ipdb.set_trace();
+        turnos = serializers.serialize('json', Turno.objects.filter(servicio__id = servicio_id))    
      
     context = {
-        'form': form
+        'form': form,
+        'turnos': turnos 
     }   
     return render(request,'turno.html', context)
 
