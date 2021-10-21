@@ -50,7 +50,7 @@ class formularioUser(UserCreationForm):
 class formularioProfesional(forms.ModelForm):
     class Meta:
         model = ServicioPrestado
-        fields = ['nombre', 'descripcion', 'categoria', 'subcategoria', 'diasAtencion', 'duracionTurno']
+        fields = ['nombre', 'descripcion', 'categoria', 'subcategoria', 'diasAtencion', 'duracionTurno', 'ciudad']
         widgets = {
             'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'},),
             'diasAtencion': forms.SelectMultiple 

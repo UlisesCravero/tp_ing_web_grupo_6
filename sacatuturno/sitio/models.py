@@ -12,6 +12,11 @@ tipo_user = [
 ]
 
 
+ciudades = [
+    ('Rafaela', 'Rafaela'),
+    ('Santa Fe', 'Santa Fe'),
+    ('Rosario', 'Rosario')
+]
 
 
 class UserProfile(models.Model):
@@ -68,9 +73,11 @@ class ServicioPrestado(models.Model):
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, blank = True, null= True)
     diasAtencion = models.ManyToManyField(Days)
     duracionTurno = models.IntegerField(default = 30, null= False, blank = False)
+    ciudad = models.CharField(max_length= 20, choices = ciudades, blank = True, null= True)
 
     def __str__(self):
         return self.nombre
+
 
 
 class Turno(models.Model):
