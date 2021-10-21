@@ -5,32 +5,32 @@
              
         <section class="vh-100 gradient-custom">
         <div class="container py-3 h-80">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-10 col-lg-8 col-xl-8">
-            <div class="card bg-dark text-white cajaborde">
+                <div class="card bg-dark text-white cajaborde">
                 <div class="card-body mt-3 text-center">
-        
-                    <div class="mb-md-5 mt-md-4 pb-2">
+
+                        <div class="mb-md-5 mt-md-4 pb-2">
                                 {%if servicio  %}
                                 <h2 class="fw-bold mb-4 text-uppercase  titulocaja text-center colorcito">MODIFICAR SERVICIO </h2>
                                 {% else %}
                                 <h2 class="fw-bold mb-4 text-uppercase titulocaja text-center colorcito">CREAR SERVICIO </h2>
                                 {%endif%}
                                 <p class="text-white-50 mb-5 text-center">Complete los campos solicitados</p>
-                                                       
+                                                        
                                 
                                 <div class="form-outline form-white mb-4 row" >
-                                    <label class="form-label letracaja col-6 rightalign"  >Nombre del servicio: </label>
-                                    <a class="col-6 anchocien" > 
+                                        <label class="form-label letracaja col-6 rightalign"  >Nombre del servicio: </label>
+                                        <a class="col-6 anchocien" > 
                                         {{form.nombre}}
-                                    </a>
+                                        </a>
                                 </div>
-                
+
                                 <div class="form-outline form-white mb-4 mt-3 row">
-                                    <label class="form-label letracaja col-6 rightalign">Descripcion del servicio:</label>
-                                    <a class="col-6 anchocien"> 
+                                        <label class="form-label letracaja col-6 rightalign">Descripcion del servicio:</label>
+                                        <a class="col-6 anchocien"> 
                                         {{form.descripcion}}
-                                    </a>
+                                        </a>
                                 </div>
                                 <div class="form-outline form-white mb-4 mt-5 row">
                                         <label class="form-label letracaja col-6 rightalign">Categoría:</label>
@@ -38,7 +38,7 @@
                                                 {%if servicio %}
                                                 <select  name="categoria" onchange="mostrarSubcategorias()" id="id_categoria">
                                                         <option class="anchocien" value="{{servicio.categoria.id}}" selected="">{{servicio.categoria}}</option>
-                                                     
+                                                        
                                                 </select>                                                                                                     
                                                 {% else %}
                                                         <div class="anchocien" > {{form.categoria}}  </div>
@@ -60,15 +60,15 @@
                                 </div> 
                                 
                                 <div class="form-outline form-white mb-4 row" >
-                                    <label class="form-label letracaja col-6 rightalign" >Días disponible: </label>   
+                                        <label class="form-label letracaja col-6 rightalign" >Días disponible: </label>   
                                         {{form.diasAtencion}}
-                                    
+                                        
                                 </div>
 
                                 <div class="form-outline form-white mb-4 row" >
                                         <label class="form-label letracaja col-6 rightalign"  >Duración del turno (minutos): </label>
                                         <a class="col-6 anchocien" > 
-                                            {{form.duracionTurno}}
+                                                {{form.duracionTurno}}
                                         </a>
                                 </div>
 
@@ -84,15 +84,15 @@
                                 {% else %}
                                 <button class="btn btn-outline-light btn-lg px-5 colorcito" type="submit">Crear</button>  
                                 {%endif%}
-                                                            
+                                                                
                                 
-                            </div>
+                                </div>
                         </div>
-                    </div>
-                    </div>
+                        </div>
+                        </div>
                 </div>
-                </div>
-            </section>
+        </div>
+        </section>
 
             
 
