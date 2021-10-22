@@ -60,7 +60,16 @@
                             
                                 
             
-                            <button class="btn btn-outline-light btn-lg px-5 colorcito" type="submit">Enviar</button>                                      
+                            <button class="btn btn-outline-light btn-lg px-5 colorcito" type="submit">Enviar</button> 
+                            
+                            <div>
+                            {% for menssage in messages %}  
+                                <div class="alert">
+                                    <a class="close" href="#" data-dismiss="alert">×</a>
+                                    {{ menssage.msg }}
+                                </div>
+                            {% endfor %}
+                            </div>
                     </div>         
         
                 </div>
@@ -72,13 +81,5 @@
     
 </form>
     
-{% for message in messages %}
-    
-    <div class="alert">
-        <a class="close" href="#" data-dismiss="alert">×</a>
-           {{ message }}
-    </div>
-
-{% endfor %}
 
 {% endblock %}

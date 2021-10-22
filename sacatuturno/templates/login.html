@@ -21,9 +21,7 @@
                             
                             <a class="col-6 anchocien" > 
                                 {{form.username}}
-                            </a>
-                            <!--<input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                            <label class="form-label" for="typeEmailX">Email</label>-->
+                            </a>                           
                         </div>
         
                         <div class="form-outline form-white mb-4 row">
@@ -31,13 +29,20 @@
                             <a class="col-6 anchocien"> 
                                 {{form.password}}
                             </a>
-                            <!--<input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                            <label class="form-label" for="typePasswordX">Contraseña</label>-->
+                            
                         </div>
         
                         <!--<p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>-->
                         <button class="btn btn-outline-light btn-lg px-5 colorcito" href= "{%url 'home'%}" >Volver</button>
                         <button class="btn btn-outline-light btn-lg px-5 colorcito" type="submit">Ingresar</button>
+
+
+                        {% for message in messages %}    
+                            <div class="alert">
+                                <a class="close" href="#" data-dismiss="alert">×</a>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
                     </div>
         
                     <div>
@@ -53,13 +58,4 @@
 
     
 </form>
-
-{% for message in messages %}
-    
-    <div class="alert">
-        <a class="close" href="#" data-dismiss="alert">×</a>
-           {{ message }}
-    </div>
-
-{% endfor %}
 
