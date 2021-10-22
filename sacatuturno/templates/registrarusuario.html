@@ -63,12 +63,12 @@
                             <button class="btn btn-outline-light btn-lg px-5 colorcito" type="submit">Enviar</button> 
                             
                             <div>
-                            {% for menssage in messages %}  
-                                <div class="alert">
-                                    <a class="close" href="#" data-dismiss="alert">×</a>
-                                    {{ menssage.msg }}
-                                </div>
-                            {% endfor %}
+                                {% for error in form.email.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
+                                {% for error in form.password2.errors %}
+                                    <p class="text-danger">{{ error }}</p>
+                                {% endfor %}
                             </div>
                     </div>         
         
@@ -80,6 +80,6 @@
         </section>  
     
 </form>
-    
+
 
 {% endblock %}
