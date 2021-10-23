@@ -190,7 +190,7 @@ def registrarservicio(request):
     args.update(csrf(request))
     if request.method == 'POST':
         form = formularioProfesional(request.POST)
-        import ipdb; ipdb.set_trace();
+        #import ipdb; ipdb.set_trace();
         if form.is_valid():
             servicio = form.save(commit=False)
             servicio.propietario_id = request.user.id

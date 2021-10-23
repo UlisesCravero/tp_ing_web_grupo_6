@@ -73,7 +73,9 @@ class ServicioPrestado(models.Model):
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, blank = True, null= True)
     diasAtencion = models.ManyToManyField(Days)
     duracionTurno = models.IntegerField(default = 30, null= False, blank = False)
-    ciudad = models.CharField(max_length= 20, choices = ciudades, blank = True, null= True)
+    ciudad = models.CharField(max_length= 20, choices = ciudades, verbose_name='Ciudad', blank = True, null= True, default = 'Rafaela')
+    inicioJornada = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Inicio de Jornada",blank=True, null=False, default='08:00:00')
+    finJornada = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Fin de Jornada",blank=True, null=False, default='17:00:00')
 
     def __str__(self):
         return self.nombre

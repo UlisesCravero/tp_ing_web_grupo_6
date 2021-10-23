@@ -50,17 +50,28 @@ class formularioUser(UserCreationForm):
 class formularioProfesional(forms.ModelForm):
     class Meta:
         model = ServicioPrestado
-        fields = ['nombre', 'descripcion', 'categoria', 'subcategoria', 'diasAtencion', 'duracionTurno', 'ciudad']
+        fields = ['nombre', 'descripcion', 'categoria', 'subcategoria', 'diasAtencion', 'duracionTurno', 'ciudad','inicioJornada','finJornada']
         widgets = {
             'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'},),
-            'diasAtencion': forms.SelectMultiple 
+            'diasAtencion': forms.SelectMultiple,
+            'inicioJornada': forms.TimeInput(
+                format='%H:%M',
+                attrs={'placeholder': 'Seleccionar hora',
+                    'type': 'time'
+                    }),
+
+            'finJornada': forms.TimeInput(
+                format='%H:%M',
+                attrs={'placeholder': 'Seleccionar hora',
+                    'type': 'time'
+                    }),  
         }
 
     def init(self, args, **kwargs):
         super().init(args, **kwargs)
 
         self.fields["categoria"].required = False
-      
+
 
 
 class formularioTurno(forms.ModelForm):
