@@ -74,8 +74,6 @@ class ServicioPrestado(models.Model):
     diasAtencion = models.ManyToManyField(Days)
     duracionTurno = models.IntegerField(default = 30, null= False, blank = False)
     ciudad = models.CharField(max_length= 20, choices = ciudades, verbose_name='Ciudad', blank = True, null= True, default = 'Rafaela')
-    #inicioJornada = models.DateTimeField( auto_now=False, auto_now_add=False, verbose_name="Inicio de Jornada",blank=True, null=False, default='2021-01-01T08:00:00')
-    #finJornada = models.DateTimeField( auto_now=False, auto_now_add=False, verbose_name="Fin de Jornada",blank=True, null=False, default='2021-01-01T17:00:00')
     inicioJornada = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Inicio de Jornada",blank=True, null=False, default='08:00:00')
     finJornada = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Fin de Jornada",blank=True, null=False, default='17:00:00')
 
@@ -105,7 +103,7 @@ class Turno(models.Model):
     cliente = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha_inicio = models.DateTimeField(verbose_name='Fecha inicio', default=datetime.datetime.today())
     horario = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Horario",blank=True, null=False, default='08:00:00')
-    fecha_fin = models.DateTimeField(verbose_name='Fecha inicio',blank=True, null=True, default=datetime.datetime.today())
+    fecha_fin = models.DateTimeField(verbose_name='Fecha Fin',blank=True, null=True, default=datetime.datetime.today())
     confirmado = models.BooleanField( default=False)
 
     
