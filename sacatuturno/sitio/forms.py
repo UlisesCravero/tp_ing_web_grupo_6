@@ -71,22 +71,21 @@ class formularioProfesional(forms.ModelForm):
         super().init(args, **kwargs)
 
         self.fields["categoria"].required = False
-
+        #self.fields["inicioJornada"].initial = datetime.datetime(2021,1,1,8,0,0)
+        #self.fields["inicioJornada"].input_formats = ["%Y-%m-%dT%H:%M", "%Y-%m-%d %H:%M"]
+        #self.fields["finJornada"].initial = datetime.datetime(2021,1,1,17,0,0)
 
 
 class formularioTurno(forms.ModelForm):
     class Meta:
         model = Turno
-        fields = ['fecha_inicio', 'fecha_fin']
+        fields = ['fecha_inicio', 'horario']
         widgets = {
             'fecha_inicio': forms.DateTimeInput(
                 format='%Y-%m-%dT%H:%M',
                 attrs={'placeholder': 'Select a datetime',
-                    'type': 'datetime-local'
+                    'type': 'date'
                     }),
-            'fecha_fin': forms.DateTimeInput(
-                format='%Y-%m-%dT%H:%M',
-                attrs={'placeholder': 'Select a datetime',
-                    'type': 'datetime-local'
-                    }),   
+
+            'horario': forms.Select(),               
         }

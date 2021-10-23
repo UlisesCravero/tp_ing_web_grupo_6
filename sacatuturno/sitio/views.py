@@ -116,7 +116,6 @@ def perfil(request, id):
     for turno in turnos:
         turnosResponse.append({ 
             'nombreServicio':turno.servicio.nombre, 
-            'fecha_fin': turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
             'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
         })
     context = {
@@ -174,8 +173,7 @@ def agenda(request, servicio_id):
     turnosResponse = []
     for turno in turnos:
         turnosResponse.append({ 
-            'nombreServicio':turno.servicio.nombre, 
-            'fecha_fin': turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+            'nombreServicio':turno.servicio.nombre,            
             'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
         })
     context = {
@@ -184,13 +182,12 @@ def agenda(request, servicio_id):
     return render(request, 'agenda.html', context)
 
 
-
 def registrarservicio(request):
     args = {}
     args.update(csrf(request))
     if request.method == 'POST':
         form = formularioProfesional(request.POST)
-        #import ipdb; ipdb.set_trace();
+        import ipdb; ipdb.set_trace();
         if form.is_valid():
             servicio = form.save(commit=False)
             servicio.propietario_id = request.user.id
@@ -207,7 +204,6 @@ def registrarservicio(request):
         'form': form
     }   
     return render(request,'registrarservicio.html', context)
-
 
 
 #cambiar nombre
@@ -251,7 +247,6 @@ def editar_servicio(request, servicio_id, id_user):
     return render(request,'registrarservicio.html', context)
 
 
-
 #API para traer las subcategorias de una categoria
 def traerSubcategorias(request, id_categoria):
     categoria = Categoria.objects.get(id = id_categoria)
@@ -263,21 +258,46 @@ def pedir_turno(request, servicio_id, id_user):
     args = {}
     args.update(csrf(request))
     if request.method == 'POST':
-        form = formularioTurno(request.POST)
+        form = formularioTurno(request.POST)       
         if form.is_valid():
             turno = form.save(commit=False)
             turno.cliente_id = id_user
             turno.servicio_id = servicio_id
-            turno.save()
-            return HttpResponseRedirect(reverse('perfil', kwargs={'id': id_user})) 
+            turno.fecha_inicio = datetime.datetime(turno.fecha_inicio.year, 
+                                                   turno.fecha_inicio.month, 
+                                                   turno.fecha_inicio.day, 
+                                                   turno.horario.hour, 
+                                                   turno.horario.minute,
+                                                   0)
+
+            fecha_aux = turno.fecha_inicio
+            fecha_aux = fecha_aux + datetime.timedelta(minutes= turno.servicio.duracionTurno)
+            turno.fecha_fin = fecha_aux
+            #datetime.datetime(fecha_aux.year, 
+                                                #fecha_aux.month, 
+                                                #fecha_aux.day, 
+                                                #turno.horario.hour,
+                                                #turno.horario.minute,
+                                                #0)
+            turno.save()           
+            return HttpResponseRedirect(reverse('home')) 
     else:
+        servicio = ServicioPrestado.objects.get(id = servicio_id)
+        horarios = []
+        for hora in servicio.listaHorarios:            
+            horarios.append({ 
+                'Hora': hora.strftime("%H:%M")                         
+            })
+               
+
         form = formularioTurno()
         #import ipdb; ipdb.set_trace();
         turnos = serializers.serialize('json', Turno.objects.filter(servicio__id = servicio_id))    
      
     context = {
         'form': form,
-        'turnos': turnos 
+        'turnos': turnos,
+        'horarios': json.dumps(horarios)
     }   
     return render(request,'turno.html', context)
 

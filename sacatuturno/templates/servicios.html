@@ -7,11 +7,14 @@
             {%for item in servicios %}
             <div class="card">     
                 <div class="card-body">
-                    <div class="card-title"><p>{{item.propietario.first_name}} {{item.propietario.last_name}} </p> </div>
+                    <div class="card-title letracaja colorcito text-uppercase"><p>{{item.nombre}} </p> </div>
+                    <h6 class="card-subtitle letracaja mb-2 text-muted">{{item.propietario.first_name}} {{item.propietario.last_name}}</h6>
+                    <h6 class="card-subtitle letracaja mb-2 text-muted">{{item.categoria}}</h6>
                     <div class="panel-text"><p>{{item.descripcion}}</p></div>
                     <div class="panel-foocter"><a href="{% url 'pedir_turno' item.id item.propietario.id %}">Sacar turno</a></div>
                 </div>
-            </div> 
+            </div>
+             
             {%endfor%}  
         </div>
         
