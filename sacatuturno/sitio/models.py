@@ -106,7 +106,7 @@ class Turno(models.Model):
     fecha_inicio = models.DateTimeField(verbose_name='Fecha inicio', default=datetime.datetime.today())
     horario = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Horario",blank=True, null=False, default='08:00:00')
     fecha_fin = models.DateTimeField(verbose_name='Fecha inicio',blank=True, null=True)
-
+    confirmado = models.BooleanField( default=False)
 
     
 

@@ -13,6 +13,22 @@
 
     <div id='calendar'></div>
 
+
+
+    
+    
+    {% for t in turnos_sin_confirmar %}
+              
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title letracaja colorcito text-uppercase">{{t.cliente.first_name}} {{t.cliente.last_name}}</h4>
+            <h6 class="card-subtitle letracaja mb-2 text-muted"> {{t.fecha_inicio }}</h6>
+            <button class="rightalign colorcito"> <a href="{% url 'cambiar_estado_turno' t.servicio.id t.id 1 %}" class="card-link luisito">Aceptar</a> </button>
+            <button class="rightalign colorcito"> <a href="{% url 'cambiar_estado_turno' t.servicio.id t.id 0 %}" class="card-link luisito">Rechazar</a> </button>   
+        </div>
+    </div>
+    {% endfor %}
+
     <script>
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -42,6 +58,7 @@
         
             calendar.render();
         });
+
 
     </script>
 

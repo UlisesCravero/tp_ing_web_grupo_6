@@ -78,10 +78,6 @@ def crearcuenta(request):
     return render(request,'registrarusuario.html', context)
 
 
-
-
-
-
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request.POST)
@@ -171,19 +167,34 @@ def subcategoria(request, id):
 
 def agenda(request, servicio_id):
     turnos = Turno.objects.filter(servicio__id = servicio_id)
-    import ipdb; ipdb.set_trace();
+    #import ipdb; ipdb.set_trace();
     turnosResponse = []
     for turno in turnos:
-        turnosResponse.append({ 
-            'nombreServicio':turno.servicio.nombre,            
-            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
-            'fecha_fin' : turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
-            'cliente' : turno.cliente.first_name + ' ' +  turno.cliente.last_name,
-        })
+        if turno.confirmado:
+            turnosResponse.append({ 
+                'nombreServicio':turno.servicio.nombre,            
+                'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
+                'fecha_fin' : turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+                'cliente' : turno.cliente.first_name + ' ' +  turno.cliente.last_name,
+            })
+        
+    turnosSinConfirmar = turnos.exclude(confirmado = True)
+
     context = {
-        'turnos': json.dumps(turnosResponse)
+        'turnos_sin_confirmar': turnosSinConfirmar,
+        'turnos': json.dumps(turnosResponse),
+        'id_servicio': servicio_id,
     }
     return render(request, 'agenda.html', context)
+
+def cambiar_estado_turno(request, id_servicio, id_turno, status):
+    turno = Turno.objects.get(id = id_turno)
+    if status == 1:
+        turno.confirmado = True
+        turno.save()
+    else: 
+        turno.delete()
+    return HttpResponseRedirect(reverse('agenda', kwargs={'servicio_id': id_servicio}))
 
 
 def registrarservicio(request):
