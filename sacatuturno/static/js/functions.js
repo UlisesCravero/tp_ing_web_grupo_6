@@ -7,29 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
+        locale : "es",
         headerToolbar: {
-        center: 'addEventButton'
+        //center: 'addEventButton'
         },
-        customButtons: {
-        addEventButton: {
-            text: 'add event...',
-            click: function() {
-            var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-            var date = new Date(dateStr + 'T10:00:00'); // will be in local time
-
-            if (!isNaN(date.valueOf())) { // valid?
-                calendar.addEvent({
-                title: 'dynamic event',
-                start: date,
-                allDay: false
-                });
-                alert('Great. Now, update your database...');
-            } else {
-                alert('Invalid date.');
-            }
-            }
-        }
-        }
+        
     });
     
     var data = JSON.parse(document.querySelector("#jsonData").getAttribute('data-json'));     
@@ -55,7 +37,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
+window.onload =function cargarHorarios(){
+    var data = JSON.parse(document.querySelector("#jsonDataHora").getAttribute('data-json'));
+    var select = document.getElementById("id_horario");
+    console.log(data);
+    for (let i = 0; i < data.length; i++){
+        console.log(data[i]);
+        var option = document.createElement("option");
+        option.value = data[i].Hora;
+        option.text = data[i].Hora;
+        select.appendChild(option);
+    }
+};
 
 /*var data = JSON.parse(document.querySelector("#jsonData").getAttribute('data-json'));     
 console.log(data[0].fields.fecha_fin);

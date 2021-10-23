@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields import DateTimeField
-import datetime
+import datetime, time
 from sitio import myFields
 
 # Create your models here.
@@ -74,8 +74,26 @@ class ServicioPrestado(models.Model):
     diasAtencion = models.ManyToManyField(Days)
     duracionTurno = models.IntegerField(default = 30, null= False, blank = False)
     ciudad = models.CharField(max_length= 20, choices = ciudades, verbose_name='Ciudad', blank = True, null= True, default = 'Rafaela')
+    #inicioJornada = models.DateTimeField( auto_now=False, auto_now_add=False, verbose_name="Inicio de Jornada",blank=True, null=False, default='2021-01-01T08:00:00')
+    #finJornada = models.DateTimeField( auto_now=False, auto_now_add=False, verbose_name="Fin de Jornada",blank=True, null=False, default='2021-01-01T17:00:00')
     inicioJornada = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Inicio de Jornada",blank=True, null=False, default='08:00:00')
     finJornada = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Fin de Jornada",blank=True, null=False, default='17:00:00')
+
+    @property 
+    def listaHorarios(self):
+        horarios=[]
+        inicio = self.inicioJornada
+        #import ipdb; ipdb.set_trace();
+        horarios.append(inicio)       
+        while inicio <= self.finJornada:
+            
+            fecha_aux= datetime.datetime(2021,1,1,inicio.hour,inicio.minute,0)
+            fecha_aux = fecha_aux + datetime.timedelta(minutes= self.duracionTurno)
+            inicio = datetime.time(fecha_aux.hour,fecha_aux.minute)
+            horarios.append(inicio)
+
+        #import ipdb; ipdb.set_trace();
+        return horarios
 
     def __str__(self):
         return self.nombre
@@ -85,8 +103,10 @@ class ServicioPrestado(models.Model):
 class Turno(models.Model):
     servicio = models.ForeignKey(ServicioPrestado, on_delete=models.CASCADE)
     cliente = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha_inicio = models.DateTimeField(verbose_name='Fecha inicio')
-    fecha_fin = models.DateTimeField(verbose_name='Fecha fin')
+    fecha_inicio = models.DateTimeField(verbose_name='Fecha inicio', default=datetime.datetime.today())
+    horario = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Horario",blank=True, null=False, default='08:00:00')
+    fecha_fin = models.DateTimeField(verbose_name='Fecha inicio',blank=True, null=True)
+    confirmado = models.BooleanField( default=False)
 
     
 

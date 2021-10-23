@@ -50,7 +50,7 @@
             <div class="card-body">
                 <h4 class="card-title letracaja colorcito text-uppercase">{{servicio.nombre}}</h4>
                 <h6 class="card-subtitle letracaja mb-2 text-muted">{{servicio.categoria}}</h6>
-                <p class="card-text"> Descripcion: {{servicio.descripcion}}</p>
+                <p class="card-text"> Descripción: {{servicio.descripcion}}</p>
 
                 <button class="rightalign colorcito"> <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link luisito">Editar</a> </button>
                 <button class="rightalign colorcito"> <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link luisito">Eliminar</a> </button>
@@ -58,7 +58,7 @@
                 
                 
             </div>
-            </div>
+        </div>
         {% empty %}
             <h1>Aun no posee servicios</h1>
             <h3>Si desea ofrecer algun servicio, haga click aqui:  <a href="{%url 'registrarservicio'%} "> <button>OFRECER SERVICIO </button> </a></h3>
@@ -90,11 +90,11 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            locale : "es",
             slotMinTime: "07:00:00",
             slotMaxTime: "21:00:00",
             weekends: false,
-            headerToolbar: {
-            center: 'addEventButton'
+            headerToolbar: {           
             },
         });
         var data = JSON.parse(document.querySelector("#jsonData").getAttribute('data-json'));     

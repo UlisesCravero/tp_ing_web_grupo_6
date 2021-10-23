@@ -14,7 +14,7 @@ class SubCategoriaAdmin(admin.ModelAdmin):
     list_display = ("nombre", "id", "categoria")
 
 class TurnoAdmin(admin.ModelAdmin):
-    list_display = ("id", "fecha_inicio", "fecha_fin")
+    list_display = ("id", "fecha_inicio")
 
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(ServicioPrestado, ServicioPrestadoAdmin)
