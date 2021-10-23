@@ -1,5 +1,8 @@
-{% extends "base.html" %}
+{% include "base.html" %}
 
-<h1 style="color: black;">SALISTE DE TU CUENTA</h1>
+<h1 style="color: black;">Gracias por utilizar el sitio</h1>
 
-<a href= "{%url 'home'%}"><button>Volver</button></a>
+<script type="text/javascript">
+    //Redireccionamiento tras 5 segundos
+    setTimeout( function() { window.location.href = "{% url 'home' %}"; }, 5000 );
+ </script>
