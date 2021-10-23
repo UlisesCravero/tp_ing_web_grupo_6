@@ -111,12 +111,13 @@ def perfil(request, id):
     servicios = ServicioPrestado.objects.filter(propietario__id = id)
     turnos = Turno.objects.filter(cliente__id = id)
     # Parse JSON into an object with attributes corresponding to dict keys.
-    ## import ipdb; ipdb.set_trace();
+    #import ipdb; ipdb.set_trace();
     turnosResponse = []
     for turno in turnos:
         turnosResponse.append({ 
             'nombreServicio':turno.servicio.nombre, 
-            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
+            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
+            'fecha_fin' : turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
         })
     context = {
         'servicios': servicios,
@@ -170,11 +171,14 @@ def subcategoria(request, id):
 
 def agenda(request, servicio_id):
     turnos = Turno.objects.filter(servicio__id = servicio_id)
+    import ipdb; ipdb.set_trace();
     turnosResponse = []
     for turno in turnos:
         turnosResponse.append({ 
             'nombreServicio':turno.servicio.nombre,            
-            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S")
+            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
+            'fecha_fin' : turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+            'cliente' : turno.cliente.first_name + ' ' +  turno.cliente.last_name,
         })
     context = {
         'turnos': json.dumps(turnosResponse)
@@ -255,13 +259,14 @@ def traerSubcategorias(request, id_categoria):
 
 
 def pedir_turno(request, servicio_id, id_user):
+    #import ipdb; ipdb.set_trace();
     args = {}
     args.update(csrf(request))
     if request.method == 'POST':
         form = formularioTurno(request.POST)       
         if form.is_valid():
             turno = form.save(commit=False)
-            turno.cliente_id = id_user
+            turno.cliente_id = request.user.id
             turno.servicio_id = servicio_id
             turno.fecha_inicio = datetime.datetime(turno.fecha_inicio.year, 
                                                    turno.fecha_inicio.month, 
