@@ -112,7 +112,7 @@ def perfil(request, id):
     for turno in turnos:
         turnosResponse.append({ 
             'nombreServicio':turno.servicio.nombre, 
-            'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
+            'fecha_inicio': turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
             'fecha_fin' : turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
         })
     context = {
