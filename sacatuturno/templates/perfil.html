@@ -32,7 +32,7 @@
                             <a class="btn btn-outline-light btn-lg px-5 colorcito" type="submit" href= "{% url 'home' %}" >Volver</a>
                             
                         </div>         
-            
+                                                
                     </div>
                 </div>
             </div>
@@ -45,16 +45,16 @@
 
     <h2 class="leftalign colorcito mt-3">Mis Servicios: </h2>
     <div class="container mt-5 mb-5">            
-        {%for servicio in servicios %}        
-        <div class="card" style="width: 600px;">
+        {%for servicio in servicios %}       
+        <div id="card_perfil" class="card" style="width: 700px;">
             <div class="card-body">
                 <h4 class="card-title letracaja colorcito text-uppercase">{{servicio.nombre}}</h4>
                 <h6 class="card-subtitle letracaja mb-2 text-muted">{{servicio.categoria}}</h6>
                 <p class="card-text"> Descripción: {{servicio.descripcion}}</p>
 
-                <button class="rightalign colorcito"> <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link luisito">Editar</a> </button>
-                <button class="rightalign colorcito"> <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link luisito">Eliminar</a> </button>
-                <button class="rightalign colorcito"> <a href="{% url 'agenda' servicio.id %}" class="card-link luisito">Agenda</a> </button>
+                <button class=" btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Editar</a> </button>
+                <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Eliminar</a> </button>
+                <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'agenda' servicio.id %}" class="card-link bg-white luisito">Agenda</a> </button>
                 
                 
             </div>
