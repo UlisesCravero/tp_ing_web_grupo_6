@@ -1,11 +1,22 @@
 {% include "header.html" %}
 
 {%block content %}   
+    <form method="GET">
+        {%csrf_token%}
+        <div>
+            <input type="text" name="buscar_servicio" id="" value="{{request.GET.buscar_servicio}}">
+            <button type="submit">Buscar</button>
+        </div> 
+    </form>
 
     <div class="container" style="padding-top: 3.5rem">
         <div class="dropdown mt-3">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categorias
+                {% if subcategoria %}
+                     {{ subcategoria.nombre}}
+                {%else%}
+                    Categorias
+                {%endif%}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 
@@ -14,7 +25,8 @@
                     <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{categoria.nombre}}</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
                         {% for subcategoria in categoria.traerSubcategorias.all %}
-                            <a class="dropdown-item" href="{% url 'servicios' subcategoria.id %}">{{subcategoria.nombre}}</a>
+                            
+                            <a class="dropdown-item" id = "item_subcategoria" href="{% url 'categorias_filtro' subcategoria.id%}">{{subcategoria.nombre}}</a>
                         {% endfor %}                       
                     </div>
                 </div>
@@ -23,7 +35,71 @@
         </div>
     </div>
 
+    <select name="elegir_ciudad" id = "elegir_ciudad" onchange="myFunction()">
+        <option value="">
+            {% if request.GET.elegir_ciudad %}
+                {{request.GET.elegir_ciudad}}
+            {% else %}
+                Seleccione una ciudad
+            {% endif %}
+        </option>
+        <option value="Rafaela">Rafaela</option>
+        <option value="Santa Fe">Santa Fe</option>
+        <option value="Rosario">Rosario</option>
+    </select>
+
+    <div class="card-group border border-black">  
+            {%for item in servicios %}
+            <div class="card">     
+                <div class="card-body">
+                    <div class="card-title letracaja colorcito text-uppercase"><p>{{item.nombre}} </p> </div>
+                    <h6 class="card-subtitle letracaja mb-2 text-muted">{{item.propietario.first_name}} {{item.propietario.last_name}}</h6>
+                    <h6 class="card-subtitle letracaja mb-2 text-muted">{{item.categoria}}</h6>
+                    <div class="panel-text"><p>{{item.descripcion}}</p></div>
+                    <div class="panel-foocter"><a href="{% url 'pedir_turno' item.id item.propietario.id %}">Sacar turno</a></div>
+                </div>
+            </div>
+             
+            {%endfor%}  
+    </div>
+
+
     <script>
+
+    var items = document.querySelectorAll('#item_subcategoria');
+    console.log(items);
+    
+    function redirigirCategoria(){
+        var ciudad = document.getElementById("elegir_ciudad").value;
+        var subcategoria = document.getElementById("dropdownMenuButton").innerText;
+        if (ciudad = 'Seleccione una ciudad')
+            url = 'http://127.0.0.1:8000/categorias/'+ subcategoria + '/';
+        else 
+            url = 'http://127.0.0.1:8000/categorias/'+ subcategoria + '/' + ciudad + '/';
+        window.location.replace(url) 
+    }
+    
+    for (var i = 0; i < items.length; i++) {
+        items[i].addEventListener("click", redirigirCategoria);  
+    }
+    
+    /*window.onload = function() {
+
+    }*/
+
+    function myFunction() {
+        var ciudad = document.getElementById("elegir_ciudad").value;
+        var subcategoria = document.getElementById("dropdownMenuButton").innerText
+        if (subcategoria = 'Categorias')
+            url = 'http://127.0.0.1:8000/categorias/'+ ciudad + '/';
+        else 
+            url = 'http://127.0.0.1:8000/categorias/'+ subcategoria + '/' + ciudad + '/';
+
+        window.location.replace(url);
+    }
+
+    
+
         (function($bs) {
     const CLASS_NAME = 'has-child-dropdown-show';
     $bs.Dropdown.prototype.toggle = function(_orginal) {

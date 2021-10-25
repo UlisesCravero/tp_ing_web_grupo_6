@@ -158,7 +158,57 @@ def register_confirm(request, activation_key):
 
 def categorias(request):
     categorias = Categoria.objects.all()
-    return render(request, 'categorias.html', {'categorias': categorias})
+    servicios = ServicioPrestado.objects.all()
+    query = request.GET.get('buscar_servicio')
+
+    if query:
+        servicios = servicios.filter(
+                Q(propietario__first_name__icontains=query) |
+                Q(propietario__last_name__icontains=query) |
+                Q(descripcion__icontains=query) |
+                Q(nombre__icontains=query)
+
+            ).distinct()
+    return render(request, 'categorias.html', {'categorias': categorias, 'servicios': servicios})
+
+def categorias_filtro(request, id_subcategoria=None, ciudad=None):
+    categorias = Categoria.objects.all()
+    #subcategoria = SubCategoria.objects.all()
+    
+    if id_subcategoria:
+       subcategoria = SubCategoria.objects.get(id = id_subcategoria)
+    
+    #import ipdb; ipdb.set_trace();
+
+    if id_subcategoria != None and ciudad == None: 
+        servicios = ServicioPrestado.objects.filter(subcategoria_id = id_subcategoria)
+    elif id_subcategoria == None and ciudad != None: 
+        servicios = ServicioPrestado.objects.filter(ciudad = ciudad)  
+    else:
+        servicios = ServicioPrestado.objects.filter(subcategoria_id = id_subcategoria, ciudad = ciudad)  
+
+    query = request.GET.get('buscar_servicio')
+
+    if query:
+        servicios = servicios.filter(
+                Q(propietario__first_name__icontains=query) |
+                Q(propietario__last_name__icontains=query) |
+                Q(descripcion__icontains=query) |
+                Q(nombre__icontains=query) |
+                Q(ciudad__icontains =query)
+
+            ).distinct()
+    
+    context = {
+        'categorias': categorias,
+        'servicios': servicios,
+    }
+
+    if id_subcategoria:
+        context['subcategoria'] = subcategoria
+    
+   
+    return render(request, 'categorias.html', context)
 
 
 def subcategoria(request, id):

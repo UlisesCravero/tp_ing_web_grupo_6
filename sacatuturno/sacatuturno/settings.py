@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import django_heroku  
+#import django_heroku  
 import os 
 from pathlib import Path
 
@@ -146,7 +146,7 @@ DEFAULT_FROM_EMAIL = 'sacatuturno.noreply@gmail.com'
 
 
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
