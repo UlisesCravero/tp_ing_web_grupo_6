@@ -367,3 +367,5 @@ def pedir_turno(request, servicio_id, id_user):
     }   
     return render(request,'turno.html', context)
 
+def robots_txt(request):
+    return render(request, "robots.txt", {})

@@ -28,6 +28,10 @@ urlpatterns = [
     path('edit_servicio/<int:servicio_id>/<int:id_user>/', login_required(editar_servicio), name='editar_servicio'),
     path('turno/<int:servicio_id>/<int:id_user>/', login_required(pedir_turno), name='pedir_turno'),
     path('cambiar_estado_turno/<int:id_servicio>/<int:id_turno>/<int:status>', login_required(cambiar_estado_turno), name='cambiar_estado_turno'),
+    path('robots.txt/', robots_txt, name='robots_txt'),
+    path('search/', include('haystack.urls')),
+
+
     
 ]
 
