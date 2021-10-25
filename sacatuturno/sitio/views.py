@@ -154,8 +154,6 @@ def register_confirm(request, activation_key):
     return render(request, 'home.html', context)   
 
 
-
-
 def categorias(request):
     categorias = Categoria.objects.all()
     servicios = ServicioPrestado.objects.all()
@@ -217,23 +215,30 @@ def subcategoria(request, id):
 
 def agenda(request, servicio_id):
     turnos = Turno.objects.filter(servicio__id = servicio_id)
+    servicio = ServicioPrestado.objects.get(id = servicio_id)
     #import ipdb; ipdb.set_trace();
     turnosResponse = []
     for turno in turnos:
         if turno.confirmado:
-            turnosResponse.append({ 
+            turno_json = { 
                 'nombreServicio':turno.servicio.nombre,            
                 'fecha_inicio':turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
                 'fecha_fin' : turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
-                'cliente' : turno.cliente.first_name + ' ' +  turno.cliente.last_name,
-            })
-        
+            }
+            
+            if turno.cliente == None:
+                turno_json['cliente'] = turno.cliente_aux
+            else:
+                turno_json['cliente'] = turno.cliente.first_name + ' ' +  turno.cliente.last_name
+
+            turnosResponse.append(turno_json)
     turnosSinConfirmar = turnos.exclude(confirmado = True)
 
     context = {
         'turnos_sin_confirmar': turnosSinConfirmar,
         'turnos': json.dumps(turnosResponse),
         'id_servicio': servicio_id,
+        'servicio': servicio,
     }
     return render(request, 'agenda.html', context)
 
@@ -319,16 +324,24 @@ def traerSubcategorias(request, id_categoria):
     return HttpResponse(subcategorias, content_type='application/json')
 
 
-def pedir_turno(request, servicio_id, id_user):
-    #import ipdb; ipdb.set_trace();
+
+def pedir_turno(request, servicio_id, id_user):   
     args = {}
     args.update(csrf(request))
     if request.method == 'POST':
-        form = formularioTurno(request.POST)       
-        if form.is_valid():
-            turno = form.save(commit=False)
-            turno.cliente_id = request.user.id
-            turno.servicio_id = servicio_id
+        
+        form = formularioTurno(request.POST)             
+        if form.is_valid():           
+            turno = form.save(commit=False) 
+            servicio = ServicioPrestado.objects.get(id = servicio_id)
+            if request.user.id != servicio.propietario.id:
+                turno.cliente_id = request.user.id
+            else:
+                #turno.cliente_aux = form.cliente_aux
+                turno.confirmado = True
+                turno.cliente = None
+                                  
+            turno.servicio_id = servicio_id          
             turno.fecha_inicio = datetime.datetime(turno.fecha_inicio.year, 
                                                    turno.fecha_inicio.month, 
                                                    turno.fecha_inicio.day, 
@@ -338,26 +351,21 @@ def pedir_turno(request, servicio_id, id_user):
 
             fecha_aux = turno.fecha_inicio
             fecha_aux = fecha_aux + datetime.timedelta(minutes= turno.servicio.duracionTurno)
-            turno.fecha_fin = fecha_aux
-            #datetime.datetime(fecha_aux.year, 
-                                                #fecha_aux.month, 
-                                                #fecha_aux.day, 
-                                                #turno.horario.hour,
-                                                #turno.horario.minute,
-                                                #0)
+            turno.fecha_fin = fecha_aux            
             turno.save()           
             return HttpResponseRedirect(reverse('home')) 
     else:
+        #import ipdb; ipdb.set_trace();
         servicio = ServicioPrestado.objects.get(id = servicio_id)
         horarios = []
         for hora in servicio.listaHorarios:            
             horarios.append({ 
                 'Hora': hora.strftime("%H:%M")                         
             })
-               
 
+        #import ipdb; ipdb.set_trace();              
         form = formularioTurno()
-        #import ipdb; ipdb.set_trace();
+        
         turnos = serializers.serialize('json', Turno.objects.filter(servicio__id = servicio_id))    
      
     context = {

@@ -42,35 +42,41 @@
     <h2 class="leftalign colorcito mt-3">Mis Turnos: </h2>
     <div id='calendar'></div>
 
-
-    <h2 class="leftalign colorcito mt-3">Mis Servicios: </h2>
-    <div class="container mt-5 mb-5">            
-        {%for servicio in servicios %}       
-        <div id="card_perfil" class="card" style="width: 700px;">
-            <div class="card-body">
-                <h4 class="card-title letracaja colorcito text-uppercase">{{servicio.nombre}}</h4>
-                <h6 class="card-subtitle letracaja mb-2 text-muted">{{servicio.categoria}}</h6>
-                <p class="card-text"> Descripción: {{servicio.descripcion}}</p>
-
-                <button class=" btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Editar</a> </button>
-                <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Eliminar</a> </button>
-                <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'agenda' servicio.id %}" class="card-link bg-white luisito">Agenda</a> </button>
-                
-                
+    <div class="row">
+        <div class="col-lg-4">
+            <h2 class="leftalign colorcito mt-3">Mis Servicios: </h2>
+        </div>
+        <div class="col-lg-8">
+            <div class="container mt-5 mb-5">            
+                {%for servicio in servicios %}       
+                <div id="card_perfil" class="card" style="width: 650px;">
+                    <div class="card-body">
+                        <h4 class="card-title letracaja colorcito text-uppercase">{{servicio.nombre}}</h4>
+                        <h6 class="card-subtitle letracaja mb-2 text-muted">{{servicio.categoria}}</h6>
+                        <p class="card-text"> Descripción: {{servicio.descripcion}}</p>
+        
+                        <button class=" btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Editar</a> </button>
+                        <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Eliminar</a> </button>
+                        <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'agenda' servicio.id %}" class="card-link bg-white luisito">Agenda</a> </button>
+                        
+                        
+                    </div>
+                </div>
+                {% empty %}
+                    <h1>Aun no posee servicios</h1>
+                    <h3>Si desea ofrecer algun servicio, haga click aqui:  <a href="{%url 'registrarservicio'%} "> <button>OFRECER SERVICIO </button> </a></h3>
+        
+                {% endfor %}
             </div>
         </div>
-        {% empty %}
-            <h1>Aun no posee servicios</h1>
-            <h3>Si desea ofrecer algun servicio, haga click aqui:  <a href="{%url 'registrarservicio'%} "> <button>OFRECER SERVICIO </button> </a></h3>
-
-        {% endfor %}
-    </div>
+    </div>   
+    
     <div id="turnos"></div>
 </section>
 
 <style>
     #calendar {
-      max-width: 720px;
+      max-width: 880px;
       margin: 0 auto;
     }
   
