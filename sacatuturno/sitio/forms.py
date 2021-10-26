@@ -79,7 +79,7 @@ class formularioProfesional(forms.ModelForm):
 class formularioTurno(forms.ModelForm):
     class Meta:
         model = Turno
-        fields = ['fecha_inicio', 'horario']
+        fields = ['fecha_inicio', 'horario', 'cliente_aux']
         widgets = {
             'fecha_inicio': forms.DateTimeInput(
                 format='%Y-%m-%dT%H:%M',

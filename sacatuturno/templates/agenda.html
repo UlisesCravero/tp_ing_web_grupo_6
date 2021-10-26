@@ -2,35 +2,46 @@
 
 {%block content %}
 
-    <style>
-        #calendar {
-            max-width: 768px;
-            margin: 0 auto;
-        }
-        
-    </style>
+    <h1>{{servicio.nombre}}</h1>
+    <br>
+    
+    <h4>Sacar Turno Manual</h4>
+    <button id= 'botoncito' ><a href="{% url 'pedir_turno' servicio.id user.id %}">Truno</a></button>
+
+    <div class="row" style="padding-bottom:40px;">
+        <div class="col-lg-1 col-md-1"></div>
+        <div class="col-lg-7 col-md-10">
+            <div id='calendar'></div>
+        </div>
+        <div class="col-lg-3 col-md-2">
+            <p>Turnos Pendientes:</p><br>             
+            {% for t in turnos_sin_confirmar %}
+                           
+                <div class="card" style="width: 400px;">
+                    <div class="card-body">
+                        <h4 class="card-title letracaja colorcito text-uppercase">{{t.cliente.first_name}} {{t.cliente.last_name}}</h4>
+                        <h6 class="card-subtitle letracaja mb-2 text-muted"> {{t.fecha_inicio }}</h6>
+                        <button class="rightalign colorcito"> <a href="{% url 'cambiar_estado_turno' t.servicio.id t.id 1 %}" class="card-link luisito">Aceptar</a> </button>
+                        <button class="rightalign colorcito"> <a href="{% url 'cambiar_estado_turno' t.servicio.id t.id 0 %}" class="card-link luisito">Rechazar</a> </button>   
+                    </div>
+                </div>
+            {% empty %}
+            <p>No posee turnos pendientes:</p>
+            {% endfor %}
+        </div>
+        <div class="col-lg-1 col-md-1"></div>
+    </div>
+    
+
+    
+    
+
+
+
+
     <div style="display: none" id="jsonData" data-json="{{ turnos }}"></div>
 
-    <div id='calendar'></div>
-
-
-
-    
-    
-    {% for t in turnos_sin_confirmar %}
-              
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title letracaja colorcito text-uppercase">{{t.cliente.first_name}} {{t.cliente.last_name}}</h4>
-            <h6 class="card-subtitle letracaja mb-2 text-muted"> {{t.fecha_inicio }}</h6>
-            <button class="rightalign colorcito"> <a href="{% url 'cambiar_estado_turno' t.servicio.id t.id 1 %}" class="card-link luisito">Aceptar</a> </button>
-            <button class="rightalign colorcito"> <a href="{% url 'cambiar_estado_turno' t.servicio.id t.id 0 %}" class="card-link luisito">Rechazar</a> </button>   
-        </div>
-    </div>
-    {% endfor %}
-
-    <script>
-        
+    <script>        
         document.addEventListener('DOMContentLoaded', function() {
             
             var calendarEl = document.getElementById('calendar');
@@ -62,6 +73,13 @@
 
     </script>
 
+    <style>
+        #calendar {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+    </style>
 {% endblock %}    
 
 
