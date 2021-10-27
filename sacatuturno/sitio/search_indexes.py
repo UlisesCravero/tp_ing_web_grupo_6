@@ -7,6 +7,7 @@ class ServicioPrestadoIndex(indexes.SearchIndex, indexes.Indexable):
     nombre = indexes.CharField(model_attr='nombre')
     descripcion = indexes.CharField(model_attr='descripcion')
     ciudad = indexes.CharField(model_attr='ciudad')
+    servicio_id = indexes.IntegerField(model_attr='id')
  
     def get_model(self):
         return ServicioPrestado

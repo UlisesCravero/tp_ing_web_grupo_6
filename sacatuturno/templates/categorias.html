@@ -73,9 +73,9 @@
         var ciudad = document.getElementById("elegir_ciudad").value;
         var subcategoria = document.getElementById("dropdownMenuButton").innerText;
         if (ciudad = 'Seleccione una ciudad')
-            url = 'http://127.0.0.1:8000/categorias/'+ subcategoria + '/';
+            url = 'http://sacatuturno.herokuapp.com/categorias/'+ subcategoria + '/';
         else 
-            url = 'http://127.0.0.1:8000/categorias/'+ subcategoria + '/' + ciudad + '/';
+            url = 'http://sacatuturno.herokuapp.com/categorias/'+ subcategoria + '/' + ciudad + '/';
         window.location.replace(url) 
     }
     
@@ -91,9 +91,9 @@
         var ciudad = document.getElementById("elegir_ciudad").value;
         var subcategoria = document.getElementById("dropdownMenuButton").innerText
         if (subcategoria = 'Categorias')
-            url = 'http://127.0.0.1:8000/categorias/'+ ciudad + '/';
+            url = 'http://sacatuturno.herokuapp.com/categorias/'+ ciudad + '/';
         else 
-            url = 'http://127.0.0.1:8000/categorias/'+ subcategoria + '/' + ciudad + '/';
+            url = 'http://sacatuturno.herokuapp.com/categorias/'+ subcategoria + '/' + ciudad + '/';
 
         window.location.replace(url);
     }

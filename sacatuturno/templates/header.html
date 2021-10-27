@@ -18,7 +18,7 @@
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-
+                    
                     {% if request.user.is_active %}
                       <!-- <li class="nav-item" style="margin-left: 500px;"><a class ="nav-link" href="{%url 'registrarservicio'%}">Ofrecer servicio</a></li> -->
                       <li class="nav-item estiloheader"><a class ="nav-link" href="{% url 'perfil' request.user.id %}">Perfil</a></li>
@@ -28,6 +28,7 @@
                       <li class="nav-item estiloheader" ><a class ="nav-link" href= "{%url 'login'%}">Ingresar</a></li>
                       <li class="nav-item" ><a class ="nav-link" href= "{%url 'crearcuenta'%}">Crear Cuenta</a></li>
                     {% endif %}
+                    <li class="nav-item"><a class ="nav-link" href="http://sacatuturno.herokuapp.com/search/">Buscar</a></li>
                 </ul>
             </div>
         </div>

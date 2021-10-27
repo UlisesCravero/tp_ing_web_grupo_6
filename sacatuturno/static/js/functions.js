@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
 window.onload =function cargarHorarios(){
     var data = JSON.parse(document.querySelector("#jsonDataHora").getAttribute('data-json'));
     var select = document.getElementById("id_horario");
-    console.log(data);
+    //console.log(data);
     for (let i = 0; i < data.length; i++){
-        console.log(data[i]);
+        //console.log(data[i]);
         var option = document.createElement("option");
         option.value = data[i].Hora;
         option.text = data[i].Hora;

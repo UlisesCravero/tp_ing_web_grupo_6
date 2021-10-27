@@ -1,5 +1,6 @@
 {{ object.nombre }}
 {{ object.descripcion }}
 {{ object.ciudad }}
+{{ object.id }}
 {% comment %} {{ object.categoria }}
 {{ object.subcategoria.nombre }} {% endcomment %}
