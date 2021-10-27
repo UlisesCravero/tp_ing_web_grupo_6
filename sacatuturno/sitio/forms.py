@@ -89,3 +89,7 @@ class formularioTurno(forms.ModelForm):
 
             'horario': forms.Select(),               
         }
+
+    def init(self, args, **kwargs):
+        super().init(args, **kwargs)
+        self.fields["cliente_aux"].required = False

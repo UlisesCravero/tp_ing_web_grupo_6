@@ -56,8 +56,10 @@
                         <p class="card-text"> Descripción: {{servicio.descripcion}}</p>
         
                         <button class=" btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'editar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Editar</a> </button>
-                        <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" class="card-link bg-white luisito">Eliminar</a> </button>
-                        <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'agenda' servicio.id %}" class="card-link bg-white luisito">Agenda</a> </button>
+                        <button class="btn-outline-dark rightalign bg-white colorcito">
+                             <a href="{% url 'eliminar_servicio' servicio.id servicio.propietario.id %}" onclick="alert('Está seguro que desea eliminar el servicio?')" class="card-link bg-white luisito">Eliminar</a> 
+                        </button>
+                        <button class="btn-outline-dark rightalign bg-white colorcito"> <a href="{% url 'agenda' servicio.id %}" class="card-link bg-white luisito">Agenda</a> </button>                      
                         
                         
                     </div>
@@ -72,7 +74,10 @@
     </div>   
     
     <div id="turnos"></div>
+
+
 </section>
+
 
 <style>
     #calendar {

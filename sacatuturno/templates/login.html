@@ -35,12 +35,12 @@
                         <!--<p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>-->
                         <button class="btn btn-outline-light btn-lg px-5 colorcito" href= "{%url 'home'%}" >Volver</button>
                         <button class="btn btn-outline-light btn-lg px-5 colorcito" type="submit">Ingresar</button>
-
+                        <a href="javascript: history.go(-1)">Volver</a>
 
                         {% for message in messages %}    
                             <div class="alert">
-                                <a class="close" href="#" data-dismiss="alert">×</a>
-                                {{ message }}
+                                <a class="text-danger href="#" data-dismiss="alert" style="text-decoration: none;">{{ message }}</a>
+                                
                             </div>
                         {% endfor %}
                     </div>

@@ -105,6 +105,6 @@ class Turno(models.Model):
     horario = models.TimeField( auto_now=False, auto_now_add=False, verbose_name="Horario",blank=True, null=False, default='08:00:00')
     fecha_fin = models.DateTimeField(verbose_name='Fecha Fin',blank=True, null=True, default=datetime.datetime.today())
     confirmado = models.BooleanField( default=False)
-    cliente_aux = models.TextField(max_length=50, blank = False, null=True)
+    cliente_aux = models.TextField(max_length=50, blank = True, null=True)
     
 

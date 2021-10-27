@@ -334,6 +334,7 @@ def pedir_turno(request, servicio_id, id_user):
         if form.is_valid():           
             turno = form.save(commit=False) 
             servicio = ServicioPrestado.objects.get(id = servicio_id)
+            id_propietario = servicio.propietario.id
             if request.user.id != servicio.propietario.id:
                 turno.cliente_id = request.user.id
             else:
@@ -357,6 +358,7 @@ def pedir_turno(request, servicio_id, id_user):
     else:
         #import ipdb; ipdb.set_trace();
         servicio = ServicioPrestado.objects.get(id = servicio_id)
+        id_propietario = servicio.propietario.id
         horarios = []
         for hora in servicio.listaHorarios:            
             horarios.append({ 
@@ -371,7 +373,8 @@ def pedir_turno(request, servicio_id, id_user):
     context = {
         'form': form,
         'turnos': turnos,
-        'horarios': json.dumps(horarios)
+        'horarios': json.dumps(horarios),
+        'id_propietario': id_propietario,
     }   
     return render(request,'turno.html', context)
 

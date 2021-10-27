@@ -5,8 +5,15 @@
 <form method="post">
     {%csrf_token%}
 
+    <p>fecha</p>
+    {{form.fecha_inicio}}
 
-    {{form.as_p}}
+    <p>horario</p>
+    {{form.horario}}
+    {% if request.user.id ==  id_propietario %}
+      <p>cliente aux</p>
+      {{form.cliente_aux}}
+    {% endif %}
 
     <button id= 'botoncito' type="submit">crear</button>
     <style>
