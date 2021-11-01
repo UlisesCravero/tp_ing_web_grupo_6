@@ -122,11 +122,8 @@ def perfil(request, id):
     return render(request,'perfil.html', context)
 
 
-
 def paginaprivada(request):
     return render(request,'paginaprivada.html', {})
-
-
 
 
 def register_confirm(request, activation_key):
@@ -245,8 +242,15 @@ def agenda(request, servicio_id):
 def cambiar_estado_turno(request, id_servicio, id_turno, status):
     turno = Turno.objects.get(id = id_turno)
     if status == 1:
+        #import ipdb; ipdb.set_trace();
+        email = turno.cliente.email
+        username = turno.cliente.username
+        id_cli = turno.cliente.id
         turno.confirmado = True
         turno.save()
+        email_subject = 'Turno confirmado'
+        email_body = "Hola %s, su turno fue confirmado. Muchas gracias por utilizar nuestro sitio. Para ver su agenda ingrese: http://sacatuturno.herokuapp.com/perfil/%s" % (username, id_cli)
+        send_mail(email_subject, email_body, None, [email], fail_silently=False)
     else: 
         turno.delete()
     return HttpResponseRedirect(reverse('agenda', kwargs={'servicio_id': id_servicio}))
@@ -353,8 +357,10 @@ def pedir_turno(request, servicio_id, id_user):
             fecha_aux = turno.fecha_inicio
             fecha_aux = fecha_aux + datetime.timedelta(minutes= turno.servicio.duracionTurno)
             turno.fecha_fin = fecha_aux            
-            turno.save()           
-            return HttpResponseRedirect(reverse('home')) 
+            turno.save()
+         
+            return HttpResponseRedirect(reverse('home'))
+
     else:
         #import ipdb; ipdb.set_trace();
         servicio = ServicioPrestado.objects.get(id = servicio_id)
