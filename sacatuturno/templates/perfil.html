@@ -1,6 +1,8 @@
 {% include "base.html" %}
 
-
+{% for message in messages%}
+    <h4 style = "margin: 0 auto; text-align: center">{{message}}</h2>
+{% endfor %}
 <section class="vh-100 gradient-custom">
     <div class="container py-3 h-80">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -38,8 +40,20 @@
             </div>
         </div>
     </div>
-
+    
     <h2 class="leftalign colorcito mt-3">Mis Turnos: </h2>
+    <div class = "leftalign mt-3"></div>
+        <div style = "display: flex; flex-direction: row; align-items:center">
+            <div class="fc-daygrid-event-dot" style="margin-left: 200px;" ></div>
+            <p style = "margin: 0 0">-> Turnos confirmados </p>
+        </div>
+        <div style = "display: flex; flex-direction: row; align-items:center">
+            <div class="fc-daygrid-event-dot" style="margin-left: 200px; border-color: red" ></div>
+            <p style = "margin: 0 0">-> Turnos pendientes de confirmación </p>
+        </div>
+        
+    </div>
+    
     <div id='calendar'></div>
 
     <div class="row">
@@ -75,7 +89,7 @@
     
     <div id="turnos"></div>
 
-
+       
 </section>
 
 
@@ -111,10 +125,16 @@
         var data = JSON.parse(document.querySelector("#jsonData").getAttribute('data-json'));     
         //console.log(data);
         for (let index = 0; index < data.length; index++) {
+            if (data[index].confirmado == true)
+                colorEvento = 'light blue';
+            else 
+                colorEvento = 'red';
+            console.log(colorEvento);
             calendar.addEvent({
                 title: data[index].nombreServicio,
                 start: data[index].fecha_inicio,
                 end: data[index].fecha_fin,
+                color: colorEvento,
                 allDay: false
                 });  
         }

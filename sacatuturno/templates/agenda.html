@@ -2,11 +2,15 @@
 
 {%block content %}
 
+    {% for message in messages%}
+        <h4 style = "margin: 0 auto; text-align: center; color: green">{{message}}</h2>
+    {% endfor %}
+    
     <h1>{{servicio.nombre}}</h1>
     <br>
     
     <h4>Sacar Turno Manual</h4>
-    <button id= 'botoncito' ><a href="{% url 'pedir_turno' servicio.id user.id %}">Truno</a></button>
+    <button id= 'botoncito' ><a href="{% url 'pedir_turno' servicio.id user.id %}">Turno</a></button>
 
     <div class="row" style="padding-bottom:40px;">
         <div class="col-lg-1 col-md-1"></div>

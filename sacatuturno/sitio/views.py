@@ -15,6 +15,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
+from django.http import HttpResponseNotFound
 from django.contrib.auth import authenticate
 from django.contrib.auth import (
     REDIRECT_FIELD_NAME, get_user_model, login as auth_login,
@@ -114,6 +115,7 @@ def perfil(request, id):
             'nombreServicio':turno.servicio.nombre, 
             'fecha_inicio': turno.fecha_inicio.strftime("%Y-%m-%dT%H:%M:%S"),
             'fecha_fin' : turno.fecha_fin.strftime("%Y-%m-%dT%H:%M:%S"),
+            'confirmado': turno.confirmado,
         })
     context = {
         'servicios': servicios,
@@ -211,11 +213,15 @@ def subcategoria(request, id):
     return render(request, 'subcategoria.html', {'subcategoria': subcategoria})
 
 def agenda(request, servicio_id):
-    turnos = Turno.objects.filter(servicio__id = servicio_id)
+    
     servicio = ServicioPrestado.objects.get(id = servicio_id)
-    #import ipdb; ipdb.set_trace();
+    if servicio.propietario.id != request.user.id:
+        return HttpResponseNotFound()
+    turnos = Turno.objects.filter(servicio__id = servicio_id)
+   
     turnosResponse = []
     for turno in turnos:
+        
         if turno.confirmado:
             turno_json = { 
                 'nombreServicio':turno.servicio.nombre,            
@@ -252,6 +258,10 @@ def cambiar_estado_turno(request, id_servicio, id_turno, status):
         email_body = "Hola %s, su turno fue confirmado. Muchas gracias por utilizar nuestro sitio. Para ver su agenda ingrese: http://sacatuturno.herokuapp.com/perfil/%s" % (username, id_cli)
         send_mail(email_subject, email_body, None, [email], fail_silently=False)
     else: 
+        email = turno.cliente.email
+        email_subject = 'Turno cancelado'
+        email_body = "Hola %s, su turno fue cancelado. Muchas gracias por utilizar nuestro sitio. Para ver su agenda ingrese: http://sacatuturno.herokuapp.com/perfil/%s" % (username, id_cli)
+        send_mail(email_subject, email_body, None, [email], fail_silently=False)
         turno.delete()
     return HttpResponseRedirect(reverse('agenda', kwargs={'servicio_id': id_servicio}))
 
@@ -358,8 +368,12 @@ def pedir_turno(request, servicio_id, id_user):
             fecha_aux = fecha_aux + datetime.timedelta(minutes= turno.servicio.duracionTurno)
             turno.fecha_fin = fecha_aux            
             turno.save()
-         
-            return HttpResponseRedirect(reverse('home'))
+            if turno.cliente == None:
+                messages.success(request, 'Turno creado con éxito!')
+                return HttpResponseRedirect(reverse('agenda', kwargs={'servicio_id': turno.servicio_id}))
+            else:
+                messages.success(request, 'Turno creado con éxito! Recibirá un mail cuando sea confirmado.')
+                return HttpResponseRedirect(reverse('perfil', kwargs={'id': request.user.id}))
 
     else:
         #import ipdb; ipdb.set_trace();
