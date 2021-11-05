@@ -105,3 +105,16 @@ footer {
     width: 220px;
     height: 30px
 } 
+
+.textosacarturno{
+    text-decoration: none !important;
+    font-size: 18px;
+    text-align: center;
+    border: black;
+    margin-bottom: 5px;
+}
+
+#id_sacarTurno{
+    background-color: rgb(118, 118, 118);
+}
+
