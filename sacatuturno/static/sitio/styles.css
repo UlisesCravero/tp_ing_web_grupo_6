@@ -6,7 +6,12 @@ textarea {
 
 .anchocien{
     width: 220px;
-    height: 30px;
+    height: 40px;
+}
+
+.btncategoria{
+    height: 40px;
+    width: 80px;
 }
 
 .leftalign{
@@ -85,3 +90,31 @@ footer {
 #id_diasAtencion {
     width: 100px;
 }
+
+.margenizqconinferior{
+    margin-bottom: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.superior{
+    margin-top: 30px;
+}
+
+.categoriaancho{
+    width: 220px;
+    height: 30px
+} 
+
+.textosacarturno{
+    text-decoration: none !important;
+    font-size: 18px;
+    text-align: center;
+    border: black;
+    margin-bottom: 5px;
+}
+
+#id_sacarTurno{
+    background-color: rgb(118, 118, 118);
+}
+
