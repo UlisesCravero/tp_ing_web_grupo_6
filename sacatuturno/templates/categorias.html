@@ -1,24 +1,32 @@
 {% include "header.html" %}
 
 {%block content %}   
-    <form method="GET">
+    
+
+
+<div class="row margenizqconinferior superior " style="margin-bottom:10px;">
+    <form method="GET" style="padding-left: 0px;">
         {%csrf_token%}
         <div>
-            <input type="text" name="buscar_servicio" id="" value="{{request.GET.buscar_servicio}}">
-            <button type="submit">Buscar</button>
+            <input class="anchocien" type="text" name="buscar_servicio" id="" value="{{request.GET.buscar_servicio}}">
+            <button class="btncategoria" type="submit">Buscar</button>
         </div> 
     </form>
 
-    <div class="container" style="padding-top: 3.5rem">
-        <div class="dropdown mt-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+</div>
+
+
+<div class="row margenizqconinferior " style="margin-bottom:10px;">
+    <div class="container" style="padding-left: 0px;">
+        <div class="dropdown dropend">
+            <button class="btn btn-secondary dropdown-toggle anchocien" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {% if subcategoria %}
                      {{ subcategoria.nombre}}
                 {%else%}
                     Categorias
                 {%endif%}
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
                 
                 {%for categoria in categorias %}
                 <div class="dropdown dropend">                   
@@ -35,6 +43,9 @@
         </div>
     </div>
 
+</div>
+
+<div class="row margenizqconinferior anchocien">
     <select name="elegir_ciudad" id = "elegir_ciudad" onchange="myFunction()">
         <option value="">
             {% if request.GET.elegir_ciudad %}
@@ -48,15 +59,17 @@
         <option value="Rosario">Rosario</option>
     </select>
 
-    <div class="card-group border border-black">  
+</div>
+
+    <div class="card-group border border-black margenizqconinferior">  
             {%for item in servicios %}
             <div class="card">     
-                <div class="card-body">
+                <div class="card-body text-center">
                     <div class="card-title letracaja colorcito text-uppercase"><p>{{item.nombre}} </p> </div>
                     <h6 class="card-subtitle letracaja mb-2 text-muted">{{item.propietario.first_name}} {{item.propietario.last_name}}</h6>
                     <h6 class="card-subtitle letracaja mb-2 text-muted">{{item.categoria}}</h6>
                     <div class="panel-text"><p>{{item.descripcion}}</p></div>
-                    <div class="panel-foocter"><a href="{% url 'pedir_turno' item.id item.propietario.id %}">Sacar turno</a></div>
+                    <div class="panel-foocter textosacarturno"><a id="id_sacarTurno" class="btn btn-primary stretched-link textosacarturno " href="{% url 'pedir_turno' item.id item.propietario.id %}">Sacar turno</a></div>
                 </div>
             </div>
              

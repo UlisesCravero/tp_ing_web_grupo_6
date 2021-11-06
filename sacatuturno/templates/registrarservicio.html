@@ -160,4 +160,23 @@
 
         }
 
+        const listaElem = document.querySelectorAll('#id_diasAtencion li');
+        console.log(listaElem);
+        for (let index = 0; index < listaElem.length; index++) {
+                listaElem[index].classList.add('row');             
+        }
+
+        const imputs = document.querySelectorAll('#id_diasAtencion li input');
+        console.log(listaElem);
+        for (let index = 0; index < imputs.length; index++) {
+                imputs[index].classList.remove('col-6');
+                imputs[index].classList.add('col');             
+        }
+
+        const labels = document.querySelectorAll('#id_diasAtencion li label');
+        console.log(listaElem);
+        for (let index = 0; index < labels.length; index++) {
+                 labels[index].classList.add('col');             
+        }
+
 </script>

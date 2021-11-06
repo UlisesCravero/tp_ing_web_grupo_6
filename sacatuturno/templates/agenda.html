@@ -10,7 +10,8 @@
     <br>
     
     <h4>Sacar Turno Manual</h4>
-    <button id= 'botoncito' ><a href="{% url 'pedir_turno' servicio.id user.id %}">Turno</a></button>
+    <a class="btn btn-secondary" href="{% url 'pedir_turno' servicio.id user.id %}">Turno</a>
+    <!-- <button id= 'botoncito' ></button> -->
 
     <div class="row" style="padding-bottom:40px;">
         <div class="col-lg-1 col-md-1"></div>
@@ -36,11 +37,6 @@
         <div class="col-lg-1 col-md-1"></div>
     </div>
     
-
-    
-    
-
-
 
 
     <div style="display: none" id="jsonData" data-json="{{ turnos }}"></div>

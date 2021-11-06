@@ -6,7 +6,12 @@ textarea {
 
 .anchocien{
     width: 220px;
-    height: 30px;
+    height: 40px;
+}
+
+.btncategoria{
+    height: 40px;
+    width: 80px;
 }
 
 .leftalign{
@@ -84,4 +89,45 @@ footer {
 
 #id_diasAtencion {
     width: 100px;
+    padding: 0 0;
+    height: 100px;
+    margin-left: 12px;
+    list-style-type: none;
+} 
+
+/* li{
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-top: var(--bs-gutter-y);
+} */
+
+.margenizqconinferior{
+    margin-bottom: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
 }
+
+.superior{
+    margin-top: 30px;
+}
+
+.categoriaancho{
+    width: 220px;
+    height: 30px
+} 
+
+.textosacarturno{
+    text-decoration: none !important;
+    font-size: 18px;
+    text-align: center;
+    border: black;
+    margin-bottom: 5px;
+}
+
+#id_sacarTurno{
+    background-color: rgb(118, 118, 118);
+}
+
