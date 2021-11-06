@@ -4,8 +4,8 @@
     
 
 
-<div class="row margenizqconinferior superior ">
-    <form method="GET">
+<div class="row margenizqconinferior superior " style="margin-bottom:10px;">
+    <form method="GET" style="padding-left: 0px;">
         {%csrf_token%}
         <div>
             <input class="anchocien" type="text" name="buscar_servicio" id="" value="{{request.GET.buscar_servicio}}">
@@ -16,8 +16,8 @@
 </div>
 
 
-<div class="row margenizqconinferior ">
-    <div class="container" >
+<div class="row margenizqconinferior " style="margin-bottom:10px;">
+    <div class="container" style="padding-left: 0px;">
         <div class="dropdown dropend">
             <button class="btn btn-secondary dropdown-toggle anchocien" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {% if subcategoria %}

@@ -52,19 +52,28 @@ class formularioProfesional(forms.ModelForm):
         model = ServicioPrestado
         fields = ['nombre', 'descripcion', 'categoria', 'subcategoria', 'diasAtencion', 'duracionTurno', 'ciudad','inicioJornada','finJornada']
         widgets = {
-            'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()'},),
-            'diasAtencion': forms.SelectMultiple,
+            'nombre': forms.TextInput(attrs={'class':'anchocien'}),
+            'duracionTurno': forms.NumberInput(attrs={'class':'anchocien'}),
+            'descripcion': forms.TextInput(attrs={'class':'anchocien'}),
+            'categoria' : forms.Select(attrs={'onchange': 'mostrarSubcategorias()','class': 'anchocien'},),
+            #'diasAtencion': forms.SelectMultiple(attrs={'class':'anchocien'}),
+
+            'diasAtencion': forms.CheckboxSelectMultiple(attrs={'class': 'col-6 '}),
+
             'inicioJornada': forms.TimeInput(
                 format='%H:%M',
                 attrs={'placeholder': 'Seleccionar hora',
-                    'type': 'time'
+                    'type': 'time',
+                    'class':'anchocien'
                     }),
 
             'finJornada': forms.TimeInput(
                 format='%H:%M',
                 attrs={'placeholder': 'Seleccionar hora',
-                    'type': 'time'
-                    }),  
+                    'type': 'time',
+                    'class':'anchocien'
+                    }),
+            'ciudad': forms.Select(attrs={'class':'anchocien'}),  
         }
 
     def init(self, args, **kwargs):

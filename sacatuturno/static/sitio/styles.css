@@ -89,7 +89,20 @@ footer {
 
 #id_diasAtencion {
     width: 100px;
-}
+    padding: 0 0;
+    height: 100px;
+    margin-left: 12px;
+    list-style-type: none;
+} 
+
+/* li{
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-top: var(--bs-gutter-y);
+} */
 
 .margenizqconinferior{
     margin-bottom: 30px;

@@ -257,7 +257,10 @@ def cambiar_estado_turno(request, id_servicio, id_turno, status):
         email_subject = 'Turno confirmado'
         email_body = "Hola %s, su turno fue confirmado. Muchas gracias por utilizar nuestro sitio. Para ver su agenda ingrese: http://sacatuturno.herokuapp.com/perfil/%s" % (username, id_cli)
         send_mail(email_subject, email_body, None, [email], fail_silently=False)
-    else: 
+    else:
+        email = turno.cliente.email
+        username = turno.cliente.username
+        id_cli = turno.cliente.id
         email = turno.cliente.email
         email_subject = 'Turno cancelado'
         email_body = "Hola %s, su turno fue cancelado. Muchas gracias por utilizar nuestro sitio. Para ver su agenda ingrese: http://sacatuturno.herokuapp.com/perfil/%s" % (username, id_cli)
