@@ -45,9 +45,12 @@ button.rightalign{
     
 }
 .luisito {
-    color: black;
+    color: white;
     margin: 0 auto !important;
     text-decoration: none;
+}
+.luisito:hover{
+    color: white;
 }
 .colorcito{
     color: rgb(201, 183, 22);
@@ -137,3 +140,24 @@ footer {
 }
 
 
+div.panel-foocter.textosacarturno{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+div.card-body.text-center{
+    position: relative;
+}
+
+a.btn.btn-primary.stretched-link.textosacarturno{
+    margin: 0 auto;
+}
+
+select#elegir_ciudad{
+    background-color: #6c757d;
+    color: white;
+    border-radius: 0.25rem;
+}

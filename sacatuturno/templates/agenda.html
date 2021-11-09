@@ -19,7 +19,7 @@
             <div id='calendar'></div>
         </div>
         <div class="col-lg-3 col-md-2">
-            <p>Turnos Pendientes:</p><br>             
+            <h3>Turnos Pendientes:</h3><br>             
             {% for t in turnos_sin_confirmar %}
                            
                 <div class="card" style="width: 400px;">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             {% empty %}
-            <p>No posee turnos pendientes:</p>
+            <h4>No posee turnos pendientes</h4>
             {% endfor %}
         </div>
         <div class="col-lg-1 col-md-1"></div>
