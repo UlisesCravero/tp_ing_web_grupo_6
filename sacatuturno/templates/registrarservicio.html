@@ -58,12 +58,7 @@
                                                 {%endif%} 
                                         </a>
                                 </div> 
-                                
-                                <div class="form-outline form-white mb-4 row" >
-                                        <label class="form-label letracaja col-6 rightalign" >Días disponible: </label>   
-                                        {{form.diasAtencion}}
-                                        
-                                </div>
+                                                               
 
                                 <div class="form-outline form-white mb-4 row" >
                                         <label class="form-label letracaja col-6 rightalign"  >Duración del turno (minutos): </label>
@@ -91,6 +86,12 @@
                                         <a class="col-6 anchocien" > 
                                                 {{form.finJornada}}
                                         </a>
+                                </div>
+
+                                <div class="form-outline form-white row d-flex" style="height: 185px;">
+                                        <label class="form-label letracaja col-6 rightalign" >Días disponible: </label>   
+                                        {{form.diasAtencion}}
+                                        
                                 </div>
                                 
                                 {%if servicio %}

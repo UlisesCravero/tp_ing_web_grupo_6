@@ -71,8 +71,9 @@ button.rightalign{
 }
 
 .estilohome{
-    font-size: 120px;
+    font-size: 130px;
     bottom: 50px;
+    padding-bottom: 20px;
 }
 
 .letrafooter{
@@ -130,4 +131,9 @@ footer {
 #id_sacarTurno{
     background-color: rgb(118, 118, 118);
 }
+
+.tituloTurno{
+    font-size: 90px;
+}
+
 
