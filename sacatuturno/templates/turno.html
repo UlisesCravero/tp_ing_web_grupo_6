@@ -5,17 +5,40 @@
 <form method="post">
     {%csrf_token%}
     
-    <p>fecha</p>
-    {{form.fecha_inicio}}
+    <h2 class="centeralign colorcito negrita tituloTurno">{{servicio.nombre}}</h2>
 
-    <p>horario</p>
-    {{form.horario}}
-    {% if request.user.id ==  id_propietario %}
-      <p>Ingrese el nombre del cliente</p>
-      {{form.cliente_aux}}
-    {% endif %}
+    <div class="row" style="margin-bottom: 40px;">
+      <div class="col-1"></div>
+      <div class="col-2" style="padding-left: 15px;">
+        <div class="d-flex justify-content-start">
+          <div class="p-2"><p style="font-weight: bold;">horario</p></div>
+          <div class="p-2">{{form.horario}}</div>
+        </div>        
+        <div class="d-flex justify-content-start">
+          <div class="p-2"><p style="font-weight: bold;">fecha</p></div>
+          <div class="p-2">{{form.fecha_inicio}}</div>
+        </div>
+        <div class="d-flex justify-content-start">
+          {% if request.user.id ==  id_propietario %}
+            <div class="p-2"><p style="font-weight: bold;"> Ingrese el nombre del cliente</p></div>
+            <div class="p-2">{{form.cliente_aux}}</div>
+          {% endif %}
+        </div>
+        
+         
+          
+        
 
-    <button class="btn btn-secondary" id= 'botoncito' type="submit">crear</button>
+        <button class="btn btn-secondary" id= 'botoncito' type="submit">crear</button>
+      </div>
+      <div class="col-9">
+        <div id='calendar'></div>
+      </div>
+    </div>
+    
+    
+
+    
     
 
     
@@ -30,7 +53,7 @@
     <div style="display: none" id="jsonData" data-json="{{ turnos }}"></div>
     
     <div class="container">
-      <div id='calendar'></div>
+      
     </div>
 
     <div style="display: none" id="jsonDataHora" data-json="{{ horarios }}"></div>

@@ -392,12 +392,13 @@ def pedir_turno(request, servicio_id, id_user):
         form = formularioTurno()
         
         turnos = serializers.serialize('json', Turno.objects.filter(servicio__id = servicio_id))    
-     
+
     context = {
         'form': form,
         'turnos': turnos,
         'horarios': json.dumps(horarios),
         'id_propietario': id_propietario,
+        'servicio': servicio,
     }   
     return render(request,'turno.html', context)
 
